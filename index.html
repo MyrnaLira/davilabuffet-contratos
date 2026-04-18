@@ -185,7 +185,7 @@
         @media (max-width: 480px) {
             .action-buttons { grid-template-columns: 1fr; }
             .checkbox-group { grid-template-columns: 1fr; }
-            .inline-group { grid-template-columns: 1fr; } /* Empilha Data, Hora e Convidados */
+            .inline-group { grid-template-columns: 1fr; } 
         }
     </style>
 </head>
@@ -332,13 +332,11 @@
 </div>
 
 <script>
-    // Lógica para mostrar/esconder opção promocional
     function verificarPromocional(isPromo) {
         const secao = document.getElementById('secao-promocional');
         secao.style.display = isPromo ? 'block' : 'none';
     }
 
-    // Configuração do Canvas de Assinatura
     const canvas = document.getElementById('signature-pad');
     const ctx = canvas.getContext('2d');
     let writing = false;
@@ -378,13 +376,23 @@
 
     function sendViaWhatsApp() {
         const element = document.getElementById('contract-content');
+        
+        // Configurações otimizadas para Mobile
         const opt = {
-            margin: 0.2,
+            margin: [0.3, 0.3], // Margens equilibradas para mobile
             filename: 'contrato_celebrar.pdf',
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
+            html2canvas: { 
+                scale: 2, 
+                useCORS: true, 
+                letterRendering: true,
+                scrollY: 0, // Garante que capture a partir do topo mesmo se houver scroll
+                scrollX: 0
+            },
             jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
         };
+
+        // Executa o processamento
         html2pdf().set(opt).from(element).save();
     }
 
