@@ -70,11 +70,11 @@
 
         input[type="text"], input[type="date"], input[type="number"], input[type="time"] {
             width: 100%;
-            padding: 12px; /* Aumentado para facilitar toque no mobile */
+            padding: 12px;
             border: 1px solid #ccc;
             border-radius: 6px;
             box-sizing: border-box;
-            font-size: 16px; /* Evita zoom automático no iOS */
+            font-size: 16px;
             background-color: #fafafa;
         }
 
@@ -93,14 +93,12 @@
             border-radius: 6px;
             border: 1px solid #eee;
             font-size: 13px;
-            cursor: pointer;
         }
 
         .check-item input { margin-right: 8px; transform: scale(1.2); }
 
-        /* Estilo para o grupo oculto */
         #promo-details {
-            display: none; /* Escondido por padrão */
+            display: none;
             background: #fff9f0;
             padding: 15px;
             border-radius: 8px;
@@ -110,7 +108,7 @@
 
         .inline-group {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr; /* Três colunas no desktop */
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 10px;
             margin-top: 8px;
         }
@@ -140,7 +138,7 @@
 
         .action-buttons {
             display: grid;
-            grid-template-columns: 1fr; /* Uma coluna no mobile */
+            grid-template-columns: 1fr;
             gap: 10px;
             margin-top: 25px;
             padding-top: 15px;
@@ -161,12 +159,9 @@
         .btn-print { background-color: #34495e; }
         .btn-send { background-color: #17a2b8; }
 
-        /* Ajustes específicos para Mobile */
         @media screen and (max-width: 480px) {
-            .checkbox-group { grid-template-columns: 1fr; } /* Coluna única no mobile */
-            .inline-group { grid-template-columns: 1fr; } /* Inputs empilhados no mobile */
-            .action-buttons { grid-template-columns: 1fr; }
-            h1 { font-size: 16px; }
+            .checkbox-group { grid-template-columns: 1fr; }
+            .inline-group { grid-template-columns: 1fr; }
         }
 
         @media print {
@@ -184,26 +179,23 @@
         <img src="celebrar_buffet_logo.png" alt="Celebrar Buffet Logo">
     </div>
 
-    <h1>Contrato de Prestação de Serviços de Buffet</h1>
+    <h1>Contrato de Prestação de Serviços</h1>
 
     <h2>DADOS DO CONTRATANTE E DO EVENTO</h2>
     <div class="checkbox-group">
-        <label class="check-item"><input type="radio" name="tipo-pacote" value="infantil" onclick="togglePromo(false)"> Pacote Infantil</label>
-        <label class="check-item"><input type="radio" name="tipo-pacote" value="adulto" onclick="togglePromo(false)"> Pacote Adulto</label>
-        <label class="check-item"><input type="radio" name="tipo-pacote" value="casamento" onclick="togglePromo(false)"> Pacote Casamento</label>
-        <label class="check-item"><input type="radio" name="tipo-pacote" value="promocional" onclick="togglePromo(true)"> Pacote Promocional</label>
+        <label class="check-item"><input type="radio" name="tipo-pacote" onclick="togglePromo(false)"> Pacote Infantil</label>
+        <label class="check-item"><input type="radio" name="tipo-pacote" onclick="togglePromo(false)"> Pacote Adulto</label>
+        <label class="check-item"><input type="radio" name="tipo-pacote" onclick="togglePromo(false)"> Pacote Casamento</label>
+        <label class="check-item"><input type="radio" name="tipo-pacote" onclick="togglePromo(true)"> Pacote Promocional</label>
     </div>
 
     <div id="promo-details">
-        <label>Este evento utiliza promoção?</label>
+        <label>Utiliza promoção?</label>
         <div class="checkbox-group" style="grid-template-columns: 1fr 1fr; margin-bottom: 10px;">
             <label class="check-item"><input type="radio" name="usa-promo"> Sim</label>
             <label class="check-item"><input type="radio" name="usa-promo"> Não</label>
         </div>
-        <div class="field-group">
-            <label>Qual o nome do pacote?</label>
-            <input type="text" placeholder="Ex: Promoção de Verão" id="nome-promo">
-        </div>
+        <input type="text" placeholder="Nome do pacote promocional" id="nome-promo">
     </div>
 
     <div class="field-group" style="margin-top: 15px;">
@@ -213,7 +205,7 @@
 
     <div class="field-group">
         <label>Endereço do Evento:</label>
-        <input type="text" placeholder="Rua, Número, Bairro">
+        <input type="text" placeholder="Local do evento">
     </div>
 
     <div class="inline-group">
@@ -226,18 +218,14 @@
     <label>Sabores do Caldinho:</label>
     <div class="checkbox-group">
         <label class="check-item"><input type="checkbox"> Feijão</label>
-        <label class="check-item"><input type="checkbox"> Feijoada</label>
         <label class="check-item"><input type="checkbox"> Camarão</label>
-        <label class="check-item"><input type="checkbox"> Costela</label>
-        <label class="check-item"><input type="checkbox"> Macaxeira</label>
-        <label class="check-item"><input type="checkbox"> Kenga</label>
-        <label class="check-item"><input type="checkbox"> Caldo Verde</label>
         <label class="check-item"><input type="checkbox"> Peixe</label>
+        <label class="check-item"><input type="checkbox"> Kenga</label>
     </div>
 
     <div class="field-group">
         <label>Prato Principal:</label>
-        <input type="text" placeholder="Ex: Estrogonofe de Frango">
+        <input type="text" placeholder="Ex: Massa ao molho branco">
     </div>
 
     <div class="field-group">
@@ -246,6 +234,18 @@
             <label class="check-item"><input type="radio" name="salg"> Sim</label>
             <label class="check-item"><input type="radio" name="salg"> Não</label>
         </div>
+    </div>
+
+    <h2>SERVIÇOS DE FOTOGRAFIA</h2>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Cobertura Fotográfica</label>
+        <label class="check-item"><input type="checkbox"> Álbum Impresso</label>
+        <label class="check-item"><input type="checkbox"> Ensaio Pré-Evento</label>
+        <label class="check-item"><input type="checkbox"> Fotos Digitais (Link)</label>
+    </div>
+    <div class="field-group" style="margin-top: 10px;">
+        <label>Observações da Fotografia:</label>
+        <input type="text" placeholder="Ex: Horário de início do fotógrafo">
     </div>
 
     <h2>VALORES E PAGAMENTO</h2>
@@ -257,28 +257,24 @@
 
     <div class="pix-box">
         <strong>PIX: 81994539257</strong><br>
-        Valquíria Gomes da Silva | PicPay<br><br>
-        📌 Envie o comprovante após preencher.
+        Valquíria Gomes da Silva | PicPay
     </div>
 
     <div class="signature-area">
         <label>Assinatura do Cliente:</label><br>
         <canvas id="signature-pad"></canvas><br>
-        <button class="btn-clear no-print" onclick="clearSignature()" style="background:#666; color:white; border:none; padding:8px; border-radius:5px; margin-top:5px;">Limpar Assinatura</button>
+        <button class="no-print" onclick="clearSignature()" style="background:#666; color:white; border:none; padding:8px; border-radius:5px; margin-top:5px; cursor:pointer;">Limpar Assinatura</button>
     </div>
 
     <div class="action-buttons no-print">
         <button class="action-btn btn-save" onclick="generatePDF()">💾 Salvar Contrato</button>
         <button class="action-btn btn-send" onclick="generatePDF()">📲 Enviar WhatsApp</button>
-        <button class="action-btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
     </div>
 </div>
 
 <script>
-    // Lógica para mostrar/esconder campo promocional
     function togglePromo(show) {
-        const promoDiv = document.getElementById('promo-details');
-        promoDiv.style.display = show ? 'block' : 'none';
+        document.getElementById('promo-details').style.display = show ? 'block' : 'none';
     }
 
     const canvas = document.getElementById('signature-pad');
@@ -321,7 +317,6 @@
         const element = document.getElementById('contract-content');
         const nomeCli = document.getElementById('cli-nome').value || 'Cliente';
         
-        // Garante que o texto digitado apareça no PDF
         const inputs = element.querySelectorAll('input');
         inputs.forEach(input => {
             if(input.type === 'checkbox' || input.type === 'radio') {
