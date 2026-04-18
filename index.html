@@ -225,20 +225,20 @@
     <h1>FORMULÁRIO PARA CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE BUFFET</h1>
 
     <h2>DADOS DO CONTRATANTE E DO EVENTO</h2>
-    
-    <div class="checkbox-group">
-        <label class="check-item"><input type="checkbox"> Pacote Infantil</label>
-        <label class="check-item"><input type="checkbox"> Pacote Adulto</label>
-        <label class="check-item"><input type="checkbox"> Pacote Casamento</label>
-        <label class="check-item"><input type="checkbox"> Pacote Promocional</label>
-    </div>
 
-    <div class="inline-group">
-        <label class="check-item"><input type="checkbox"> Sim</label>
-        <label>Qual?</label>
-        <input type="text" placeholder="Nome do pacote">
-    </div>
+<div class="checkbox-group">
+    <label class="check-item"><input type="radio" name="tipo-pacote"> Pacote Infantil</label>
+    <label class="check-item"><input type="radio" name="tipo-pacote"> Pacote Adulto</label>
+    <label class="check-item"><input type="radio" name="tipo-pacote"> Pacote Casamento</label>
+    <label class="check-item"><input type="radio" name="tipo-pacote"> Pacote Promocional</label>
+</div>
 
+<div class="inline-group">
+    <label class="check-item"><input type="radio" name="usa-promo"> Sim</label>
+    <label class="check-item"><input type="radio" name="usa-promo"> Não</label>
+    <label>Qual?</label>
+    <input type="text" placeholder="Nome do pacote">
+</div>
     <div class="field-group">
         <label>• Nome do Contratante:</label>
         <input type="text" placeholder="Nome completo">
