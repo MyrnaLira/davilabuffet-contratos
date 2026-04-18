@@ -205,4 +205,199 @@
     
     <div class="checkbox-group">
         <label class="check-item"><input type="radio" name="pacote_tipo" onclick="verificarPromocional(false)"> Pacote Infantil</label>
-        <label class="check-item"><input type="radio" name="pacote_tipo" onclick
+        <label class="check-item"><input type="radio" name="pacote_tipo" onclick="verificarPromocional(false)"> Pacote Adulto</label>
+        <label class="check-item"><input type="radio" name="pacote_tipo" onclick="verificarPromocional(false)"> Pacote Casamento</label>
+        <label class="check-item"><input type="radio" name="pacote_tipo" id="radio-promocional" onclick="verificarPromocional(true)"> Pacote Promocional</label>
+    </div>
+
+    <div id="secao-promocional">
+        <label>Utiliza promoção?</label>
+        <div class="checkbox-group" style="grid-template-columns: 1fr 1fr; margin-bottom: 10px;">
+            <label class="check-item"><input type="radio" name="usa_promo_geral"> Sim</label>
+            <label class="check-item"><input type="radio" name="usa_promo_geral"> Não</label>
+        </div>
+        <label>Qual o nome da promoção?</label>
+        <input type="text" placeholder="Ex: Promoção de Verão" id="nome-pacote-promo">
+    </div>
+
+    <div class="field-group" style="margin-top: 15px;">
+        <label> Nome do Contratante:</label>
+        <input type="text" placeholder="Nome completo">
+    </div>
+    
+    <div class="field-group">
+        <label> Endereço do Evento:</label>
+        <input type="text" placeholder="Endereço">
+    </div>
+
+    <div class="inline-group">
+        <div><label> Data:</label><input type="date"></div>
+        <div><label> Horário:</label><input type="time"></div>
+        <div><label> Convidados:</label><input type="number" placeholder="Ex: 100"></div>
+    </div>
+    <div class="warning-box no-print">⚠️ (Caso mude a data, avisar com 15 dias de antecedência)</div>
+
+    <h2>INFORMAÇÕES DO BUFFET</h2>
+    
+    <label>Escolha o sabor do caldinho:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Feijão</label>
+        <label class="check-item"><input type="checkbox"> Feijoada</label>
+        <label class="check-item"><input type="checkbox"> Camarão</label>
+        <label class="check-item"><input type="checkbox"> Costela</label>
+        <label class="check-item"><input type="checkbox"> Macaxeira</label>
+        <label class="check-item"><input type="checkbox"> Kenga</label>
+        <label class="check-item"><input type="checkbox"> Caldo Verde</label>
+        <label class="check-item"><input type="checkbox"> Peixe</label>
+    </div>
+
+    <div class="field-group">
+        <label>Prato Principal:</label>
+        <input type="text" placeholder="Descreva o prato principal">
+    </div>
+
+    <label>Salgados:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="radio" name="salgados_opt"> Sim</label>
+        <label class="check-item"><input type="radio" name="salgados_opt"> Não</label>
+    </div>
+
+    <label>Bebidas inclusas:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="radio" name="bebidas_opt"> Refrigerante (sortidos)</label>
+        <label class="check-item"><input type="radio" name="bebidas_opt"> Suco (sortidos)</label>
+    </div>
+
+    <h2>DRINKS</h2>
+    
+    <label>Terá drinks no evento?</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="radio" name="drinks_opt"> Sim</label>
+        <label class="check-item"><input type="radio" name="drinks_opt"> Não</label>
+    </div>
+
+    <h2>DECORAÇÃO E FOTOGRAFIA</h2>
+    
+    <label>Haverá decoração pelo buffet?</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="radio" name="decor_opt"> Sim</label>
+        <label class="check-item"><input type="radio" name="decor_opt"> Não</label>
+    </div>
+
+    <label>Serviço de Fotografia:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="radio" name="foto_opt"> Sim</label>
+        <label class="check-item"><input type="radio" name="foto_opt"> Não</label>
+    </div>
+
+    <h2>VALORES E PAGAMENTO</h2>
+    
+    <div class="field-group">
+        <div class="field-group">
+        <label>• Valor Total do Buffet:</label>
+        <input type="text" placeholder="R$ 0,00">
+    </div>
+    <div class="field-group">
+        <label>• Entrada Paga:</label>
+        <input type="text" placeholder="R$ 0,00">
+    </div>
+    <div class="field-group">
+        <label>• Restante a Pagar:</label>
+        <input type="text" placeholder="R$ 0,00">
+    </div>
+    </div>
+
+    <label>Forma de pagamento:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="radio" name="pagamento_opt"> 50% contratação + 50% dia do evento</label>
+        <label class="check-item"><input type="radio" name="pagamento_opt"> Pagamento total antecipado (ganha bônus)</label>
+    </div>
+
+    <div class="pix-box">
+        <strong>Dados para pagamento (Pix):</strong><br>
+        Chave Pix: 81994539257<br>
+        Nome: Valquíria Gomes da Silva
+    </div>
+
+    <div class="signature-area">
+        <label>Assinatura do Cliente:</label>
+        <canvas id="signature-pad"></canvas>
+        <button class="no-print" onclick="clearSignature()" style="margin-top:10px; padding:8px; border-radius:5px; border:1px solid #ccc; cursor:pointer; font-family: inherit;">Limpar Assinatura</button>
+    </div>
+
+    <div class="action-buttons">
+        <button class="action-btn btn-save" onclick="saveData()">💾 Salvar</button>
+        <button class="action-btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
+        <button class="action-btn btn-send" onclick="sendViaWhatsApp()">📲 Enviar PDF</button>
+    </div>
+
+</div>
+
+<script>
+    function verificarPromocional(isPromo) {
+        const secao = document.getElementById('secao-promocional');
+        secao.style.display = isPromo ? 'block' : 'none';
+    }
+
+    const canvas = document.getElementById('signature-pad');
+    const ctx = canvas.getContext('2d');
+    let writing = false;
+
+    function resizeCanvas() {
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        ctx.scale(ratio, ratio);
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 2;
+        ctx.lineCap = "round";
+    }
+    
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function start(e) { writing = true; ctx.beginPath(); const p = getPos(e); ctx.moveTo(p.x, p.y); if(e.touches) e.preventDefault(); }
+    function move(e) { if (!writing) return; const p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); if(e.touches) e.preventDefault(); }
+    function stop() { writing = false; }
+
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', stop);
+    canvas.addEventListener('touchstart', start, {passive: false});
+    canvas.addEventListener('touchmove', move, {passive: false});
+    canvas.addEventListener('touchend', stop);
+
+    function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+    function sendViaWhatsApp() {
+        const element = document.getElementById('contract-content');
+        
+        const opt = {
+            margin: [0.3, 0.3], 
+            filename: 'contrato_celebrar.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { 
+                scale: 2, 
+                useCORS: true, 
+                letterRendering: true,
+                scrollY: 0, 
+                scrollX: 0
+            },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save();
+    }
+
+    function saveData() { alert("Dados processados com sucesso!"); }
+</script>
+
+</body>
+</html>
