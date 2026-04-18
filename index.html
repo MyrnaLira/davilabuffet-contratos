@@ -70,11 +70,11 @@
 
         input[type="text"], input[type="date"], input[type="number"], input[type="time"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px; /* Aumentado para facilitar toque no mobile */
             border: 1px solid #ccc;
             border-radius: 6px;
             box-sizing: border-box;
-            font-size: 15px;
+            font-size: 16px; /* Evita zoom automático no iOS */
             background-color: #fafafa;
         }
 
@@ -89,17 +89,28 @@
             display: flex;
             align-items: center;
             background: #f9f9f9;
-            padding: 8px;
+            padding: 10px;
             border-radius: 6px;
             border: 1px solid #eee;
             font-size: 13px;
+            cursor: pointer;
         }
 
         .check-item input { margin-right: 8px; transform: scale(1.2); }
 
+        /* Estilo para o grupo oculto */
+        #promo-details {
+            display: none; /* Escondido por padrão */
+            background: #fff9f0;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ffeeba;
+            margin-top: 10px;
+        }
+
         .inline-group {
-            display: flex;
-            align-items: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; /* Três colunas no desktop */
             gap: 10px;
             margin-top: 8px;
         }
@@ -122,44 +133,41 @@
             border: 2px solid #ccc;
             background-color: #fff;
             width: 100%;
-            height: 150px;
+            height: 180px;
             border-radius: 5px;
             touch-action: none;
         }
 
-        .btn-clear {
-            background-color: #666;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            margin-top: 5px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
         .action-buttons {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
+            grid-template-columns: 1fr; /* Uma coluna no mobile */
+            gap: 10px;
             margin-top: 25px;
             padding-top: 15px;
             border-top: 1px solid #eee;
         }
 
         .action-btn {
-            padding: 12px 5px;
+            padding: 15px;
             border: none;
             border-radius: 6px;
             color: white;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 15px;
             cursor: pointer;
         }
 
         .btn-save { background-color: #28a745; }
         .btn-print { background-color: #34495e; }
         .btn-send { background-color: #17a2b8; }
+
+        /* Ajustes específicos para Mobile */
+        @media screen and (max-width: 480px) {
+            .checkbox-group { grid-template-columns: 1fr; } /* Coluna única no mobile */
+            .inline-group { grid-template-columns: 1fr; } /* Inputs empilhados no mobile */
+            .action-buttons { grid-template-columns: 1fr; }
+            h1 { font-size: 16px; }
+        }
 
         @media print {
             .action-buttons, .btn-clear, .no-print { display: none !important; }
@@ -180,26 +188,32 @@
 
     <h2>DADOS DO CONTRATANTE E DO EVENTO</h2>
     <div class="checkbox-group">
-        <label class="check-item"><input type="radio" name="tipo-pacote"> Pacote Infantil</label>
-        <label class="check-item"><input type="radio" name="tipo-pacote"> Pacote Adulto</label>
-        <label class="check-item"><input type="radio" name="tipo-pacote"> Pacote Casamento</label>
-        <label class="check-item"><input type="radio" name="tipo-pacote"> Pacote Promocional</label>
+        <label class="check-item"><input type="radio" name="tipo-pacote" value="infantil" onclick="togglePromo(false)"> Pacote Infantil</label>
+        <label class="check-item"><input type="radio" name="tipo-pacote" value="adulto" onclick="togglePromo(false)"> Pacote Adulto</label>
+        <label class="check-item"><input type="radio" name="tipo-pacote" value="casamento" onclick="togglePromo(false)"> Pacote Casamento</label>
+        <label class="check-item"><input type="radio" name="tipo-pacote" value="promocional" onclick="togglePromo(true)"> Pacote Promocional</label>
     </div>
 
-    <div class="inline-group">
-        <label class="check-item"><input type="radio" name="usa-promo"> Sim</label>
-        <label class="check-item"><input type="radio" name="usa-promo"> Não</label>
-        <input type="text" placeholder="Qual o nome do pacote?" id="nome-promo">
+    <div id="promo-details">
+        <label>Este evento utiliza promoção?</label>
+        <div class="checkbox-group" style="grid-template-columns: 1fr 1fr; margin-bottom: 10px;">
+            <label class="check-item"><input type="radio" name="usa-promo"> Sim</label>
+            <label class="check-item"><input type="radio" name="usa-promo"> Não</label>
+        </div>
+        <div class="field-group">
+            <label>Qual o nome do pacote?</label>
+            <input type="text" placeholder="Ex: Promoção de Verão" id="nome-promo">
+        </div>
     </div>
 
-    <div class="field-group">
+    <div class="field-group" style="margin-top: 15px;">
         <label>Nome do Contratante:</label>
         <input type="text" id="cli-nome" placeholder="Nome Completo">
     </div>
 
     <div class="field-group">
         <label>Endereço do Evento:</label>
-        <input type="text" id="evento-end">
+        <input type="text" placeholder="Rua, Número, Bairro">
     </div>
 
     <div class="inline-group">
@@ -223,20 +237,22 @@
 
     <div class="field-group">
         <label>Prato Principal:</label>
-        <input type="text">
+        <input type="text" placeholder="Ex: Estrogonofe de Frango">
     </div>
 
-    <div class="inline-group">
-        <label>Salgados:</label>
-        <label class="check-item"><input type="radio" name="salg"> Sim</label>
-        <label class="check-item"><input type="radio" name="salg"> Não</label>
+    <div class="field-group">
+        <label>Salgados inclusos?</label>
+        <div class="checkbox-group" style="grid-template-columns: 1fr 1fr;">
+            <label class="check-item"><input type="radio" name="salg"> Sim</label>
+            <label class="check-item"><input type="radio" name="salg"> Não</label>
+        </div>
     </div>
 
     <h2>VALORES E PAGAMENTO</h2>
-    <div class="field-group">
-        <label>Valor Total: R$</label><input type="text">
-        <label>Entrada: R$</label><input type="text">
-        <label>Restante: R$</label><input type="text">
+    <div class="inline-group">
+        <div><label>Valor Total: R$</label><input type="text" placeholder="0,00"></div>
+        <div><label>Entrada: R$</label><input type="text" placeholder="0,00"></div>
+        <div><label>Restante: R$</label><input type="text" placeholder="0,00"></div>
     </div>
 
     <div class="pix-box">
@@ -248,25 +264,31 @@
     <div class="signature-area">
         <label>Assinatura do Cliente:</label><br>
         <canvas id="signature-pad"></canvas><br>
-        <button class="btn-clear no-print" onclick="clearSignature()">Limpar Assinatura</button>
+        <button class="btn-clear no-print" onclick="clearSignature()" style="background:#666; color:white; border:none; padding:8px; border-radius:5px; margin-top:5px;">Limpar Assinatura</button>
     </div>
 
     <div class="action-buttons no-print">
-        <button class="action-btn btn-save" onclick="generatePDF()">💾 Salvar</button>
+        <button class="action-btn btn-save" onclick="generatePDF()">💾 Salvar Contrato</button>
+        <button class="action-btn btn-send" onclick="generatePDF()">📲 Enviar WhatsApp</button>
         <button class="action-btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
-        <button class="action-btn btn-send" onclick="generatePDF()">📲 Enviar</button>
     </div>
 </div>
 
 <script>
+    // Lógica para mostrar/esconder campo promocional
+    function togglePromo(show) {
+        const promoDiv = document.getElementById('promo-details');
+        promoDiv.style.display = show ? 'block' : 'none';
+    }
+
     const canvas = document.getElementById('signature-pad');
     const ctx = canvas.getContext('2d');
     let writing = false;
 
     function setupCanvas() {
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width;
-        canvas.height = rect.height;
+        const container = canvas.parentElement;
+        canvas.width = container.offsetWidth;
+        canvas.height = 180;
         ctx.strokeStyle = "#000";
         ctx.lineWidth = 2;
         ctx.lineCap = "round";
@@ -291,39 +313,35 @@
     canvas.addEventListener('touchend', stop);
 
     function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+    
     window.onload = setupCanvas;
+    window.onresize = setupCanvas;
 
     function generatePDF() {
         const element = document.getElementById('contract-content');
         const nomeCli = document.getElementById('cli-nome').value || 'Cliente';
-
-        // Passo 1: Forçar a sincronização dos valores dos inputs com o DOM
-        // Isso garante que o texto digitado seja "visto" pelo gerador de imagem
-        const inputs = element.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], input[type="time"]');
+        
+        // Garante que o texto digitado apareça no PDF
+        const inputs = element.querySelectorAll('input');
         inputs.forEach(input => {
-            input.setAttribute('value', input.value);
+            if(input.type === 'checkbox' || input.type === 'radio') {
+                if(input.checked) input.setAttribute('checked', 'checked');
+                else input.removeAttribute('checked');
+            } else {
+                input.setAttribute('value', input.value);
+            }
         });
 
-        // Passo 2: Configurações do PDF
         const opt = {
-            margin: [5, 5, 5, 5], // Pequena margem para não cortar bordas
+            margin: [5, 5],
             filename: `Contrato_${nomeCli}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { 
-                scale: 2, 
-                useCORS: true,
-                logging: false,
-                letterRendering: true,
-                scrollY: 0 // Importante: Garante captura a partir do topo
-            },
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // Modo mais agressivo para evitar páginas brancas
+            pagebreak: { mode: 'avoid-all' }
         };
 
-        // Passo 3: Gerar e salvar
-        html2pdf().set(opt).from(element).save().then(() => {
-            alert("Contrato gerado com sucesso!");
-        });
+        html2pdf().set(opt).from(element).save();
     }
 </script>
 
