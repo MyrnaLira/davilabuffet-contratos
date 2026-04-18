@@ -329,28 +329,28 @@
 
     <h2>DECORAÇÃO</h2>
     
-    <label>Haverá decoração pelo buffet?</label>
+  <label>Haverá decoração pelo buffet?</label>
     <div class="checkbox-group">
-        <label class="check-item"><input type="checkbox"> Sim</label>
-        <label class="check-item"><input type="checkbox"> Não</label>
+        <label class="check-item"><input type="radio" name="decisao-decor"> Sim</label>
+        <label class="check-item"><input type="radio" name="decisao-decor"> Não</label>
     </div>
 
     <div class="field-group">
         <label>Se sim, tema da decoração:</label>
-        <input type="text" placeholder="Ex: Safari">
+        <input type="text" placeholder="Ex: Safari, Boteco, Flores...">
     </div>
     <div class="warning-box no-print">📌 (Foto enviada no WhatsApp da decoração)</div>
 
     <label>Lembrancinhas para a área de decoração:</label>
     <div class="checkbox-group">
-        <label class="check-item"><input type="checkbox"> Sim</label>
-        <label class="check-item"><input type="checkbox"> Não</label>
+        <label class="check-item"><input type="radio" name="lembrancinhas"> Sim</label>
+        <label class="check-item"><input type="radio" name="lembrancinhas"> Não</label>
     </div>
 
-    <h2>SERVIÇO DE FOTOGRAFIA</h2>
+  <h2>SERVIÇO DE FOTOGRAFIA</h2>
     <div class="checkbox-group">
-        <label class="check-item"><input type="checkbox"> Sim</label>
-        <label class="check-item"><input type="checkbox"> Não</label>
+        <label class="check-item"><input type="radio" name="foto"> Sim</label>
+        <label class="check-item"><input type="radio" name="foto"> Não</label>
     </div>
 
     <h2>VALORES E PAGAMENTO</h2>
@@ -369,9 +369,20 @@
     </div>
 
     <label>Forma de pagamento:</label>
-    <div class="checkbox-group">
-        <label class="check-item"><input type="checkbox"> 50% contratação + 50% dia do evento</label>
-        <label class="check-item"><input type="checkbox"> Pagamento total antecipado (ganha bônus)</label>
+    <div class="checkbox-group" style="grid-template-columns: 1fr;">
+        <label class="check-item" style="margin-bottom: 8px;">
+            <input type="radio" name="metodo-pagamento"> 50% na contratação + 50% no dia do evento
+        </label>
+        <label class="check-item">
+            <input type="radio" name="metodo-pagamento"> Pagamento total antecipado (ganha 1 hora extra de buffet ou 5% de desconto)
+        </label>
+    </div>
+
+    <div class="pix-box">
+        <strong>Dados para pagamento (Pix):</strong><br>
+        Chave Pix: 81994539257<br>
+        Nome: Valquíria Gomes da Silva<br>
+        Conta: Comercial PicPay
     </div>
 
     <div class="pix-box">
