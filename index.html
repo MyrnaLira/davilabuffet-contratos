@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Contrato Celebrar Buffet</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* Estilos específicos para celular */
+        :root {
+            --primary-gold: #c69c6d;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+            --card-bg: #fff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 10px;
+            color: var(--text-color);
+            -webkit-user-select: none; /* Impede seleção de texto acidental no iOS */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Área da Logo */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-gold);
+            padding-bottom: 10px;
+        }
+
+        .logo-container img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        h1 {
+            font-size: 18px;
+            text-align: center;
+            color: var(--primary-gold);
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 16px;
+            background-color: var(--primary-gold);
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 25px;
+        }
+
+        /* Estilos dos Campos de Entrada */
+        .field-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        input[type="time"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box; /* Garante que o padding não aumente o tamanho */
+            font-size: 16px; /* Evita o zoom automático no iOS ao focar */
+            background-color: #fafafa;
+        }
+
+        input:focus {
+            border-color: var(--primary-gold);
+            outline: none;
+            background-color: #fff;
+        }
+
+        /* Estilos dos Checkboxes */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .check-item input {
+            margin-right: 10px;
+            transform: scale(1.3);
+        }
+
+        .inline-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .inline-group input[type="text"] {
+            flex: 1;
+        }
+
+        /* Alertas e Ícones */
+        .warning-box {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .pix-box {
+            background-color: #d4edda;
+            border: 1px dashed #28a745;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        /* Área de Assinatura */
+        .signature-area {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        canvas#signature-pad {
+            border: 2px solid #ccc;
+            background-color: #fff;
+            width: 100%;
+            height: 150px;
+            border-radius: 5px;
+            touch-action: none; /* Crucial para iOS */
+        }
+
+        .btn-clear {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-top: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Botões de Ação */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        button.action-btn {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-save { background-color: #28a745; }
+        .btn-print { background-color: #34495e; }
+        .btn-send { background-color: #17a2b8; }
+
+        /* Esconder elementos na impressão */
+        @media print {
+            .action-buttons, .btn-clear, .warning-box, .no-print {
+                display: none !important;
+            }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: none; padding: 0; }
+            h2 { border-radius: 0; }
+            input { border: none !important; background: transparent !important; }
+            .check-item { background: transparent; border: none; padding: 0; margin-bottom: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="contract-content">
+    
+    <div class="logo-container">
+        <img src="celebrar_buffet_logo.png" alt="Celebrar Buffet Logo" id="logo-img">
+    </div>
+
+    <h1>FORMULÁRIO PARA CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE BUFFET</h1>
+
+    <h2>DADOS DO CONTRATANTE E DO EVENTO</h2>
+    
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Pacote Infantil</label>
+        <label class="check-item"><input type="checkbox"> Pacote Adulto</label>
+        <label class="check-item"><input type="checkbox"> Pacote Casamento</label>
+        <label class="check-item"><input type="checkbox"> Pacote Promocional</label>
+    </div>
+
+    <div class="inline-group">
+        <label class="check-item"><input type="checkbox"> Sim</label>
+        <label>Qual?</label>
+        <input type="text" placeholder="Nome do pacote">
+    </div>
+
+    <div class="field-group">
+        <label>• Nome do Contratante:</label>
+        <input type="text" placeholder="Nome completo">
+    </div>
+    
+    <div class="field-group">
+        <label>• Endereço do Evento:</label>
+        <input type="text" placeholder="Endereço">
+    </div>
+
+    <div class="inline-group">
+        <div>
+            <label>• Data:</label>
+            <input type="date">
+        </div>
+        <div>
+            <label>• Horário:</label>
+            <input type="time">
+        </div>
+        <div>
+            <label>• Convidados:</label>
+            <input type="number" placeholder="Ex: 100">
+        </div>
+    </div>
+    <div class="warning-box no-print">⚠️ (Caso mude a data, avisar com 15 dias de antecedência)</div>
+
+    <h2>INFORMAÇÕES DO BUFFET</h2>
+    
+    <label>Escolha o sabor do caldinho:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Feijão</label>
+        <label class="check-item"><input type="checkbox"> Feijoada</label>
+        <label class="check-item"><input type="checkbox"> Camarão</label>
+        <label class="check-item"><input type="checkbox"> Costela</label>
+        <label class="check-item"><input type="checkbox"> Macaxeira/Charque</label>
+        <label class="check-item"><input type="checkbox"> Kenga</label>
+        <label class="check-item"><input type="checkbox"> Caldo Verde</label>
+        <label class="check-item"><input type="checkbox"> Peixe</label>
+    </div>
+
+    <div class="field-group">
+        <label>Prato Principal:</label>
+        <input type="text" placeholder="Descreva o prato principal">
+    </div>
+
+    <label>Salgados:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Sim</label>
+        <label class="check-item"><input type="checkbox"> Não</label>
+    </div>
+
+    <label>Bebidas inclusas:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Refrigerante (sortidos)</label>
+        <label class="check-item"><input type="checkbox"> Suco (sortidos)</label>
+    </div>
+
+    <label>Buffet contratado através de pacote promocional:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Sim</label>
+        <label class="check-item"><input type="checkbox"> Não</label>
+    </div>
+
+    <div class="field-group">
+        <label>Qual pacote?</label>
+        <input type="text" placeholder="Especifique">
+    </div>
+
+    <h2>DRINKS</h2>
+    
+    <label>Terá drinks no evento?</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Sim</label>
+        <label class="check-item"><input type="checkbox"> Não</label>
+    </div>
+
+    <label>Escolha até 4 sabores de frutas:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Uva</label>
+        <label class="check-item"><input type="checkbox"> Abacaxi</label>
+        <label class="check-item"><input type="checkbox"> Limão</label>
+        <label class="check-item"><input type="checkbox"> Maracujá</label>
+        <label class="check-item"><input type="checkbox"> Tangerina</label>
+        <label class="check-item"><input type="checkbox"> Graviola</label>
+        <label class="check-item"><input type="checkbox"> Cajá</label>
+        <label class="check-item"><input type="checkbox"> Caju</label>
+    </div>
+
+    <h2>DECORAÇÃO</h2>
+    
+    <label>Haverá decoração pelo buffet?</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Sim</label>
+        <label class="check-item"><input type="checkbox"> Não</label>
+    </div>
+
+    <div class="field-group">
+        <label>Se sim, tema da decoração:</label>
+        <input type="text" placeholder="Ex: Safari">
+    </div>
+    <div class="warning-box no-print">📌 (Foto enviada no WhatsApp da decoração)</div>
+
+    <label>Lembrancinhas para a área de decoração:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Sim</label>
+        <label class="check-item"><input type="checkbox"> Não</label>
+    </div>
+
+    <h2>SERVIÇO DE FOTOGRAFIA</h2>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> Sim</label>
+        <label class="check-item"><input type="checkbox"> Não</label>
+    </div>
+
+    <h2>VALORES E PAGAMENTO</h2>
+    
+    <div class="field-group">
+        <label>• Valor Total do Buffet:</label>
+        <input type="text" placeholder="R$ 0,00">
+    </div>
+    <div class="field-group">
+        <label>• Entrada Paga:</label>
+        <input type="text" placeholder="R$ 0,00">
+    </div>
+    <div class="field-group">
+        <label>• Restante a Pagar:</label>
+        <input type="text" placeholder="R$ 0,00">
+    </div>
+
+    <label>Forma de pagamento:</label>
+    <div class="checkbox-group">
+        <label class="check-item"><input type="checkbox"> 50% contratação + 50% dia do evento</label>
+        <label class="check-item"><input type="checkbox"> Pagamento total antecipado (ganha bônus)</label>
+    </div>
+
+    <div class="pix-box">
+        <strong>Dados para pagamento (Pix):</strong><br>
+        Chave Pix: 81994539257<br>
+        Nome: Valquíria Gomes da Silva<br>
+        Conta: Comercial PicPay
+    </div>
+    <div class="warning-box no-print">
+        📌 Enviar comprovante.<br>
+        ⚠️ Não reservamos data sem preenchimento correto e comprovante.
+    </div>
+
+    <div class="signature-area">
+        <label>Assinatura do Cliente (desenhe abaixo com o dedo):</label>
+        <canvas id="signature-pad"></canvas>
+        <button class="btn-clear no-print" onclick="clearSignature()">Limpar Assinatura</button>
+    </div>
+
+    <div class="action-buttons">
+        <button class="action-btn btn-save" onclick="saveData()">💾 Salvar</button>
+        <button class="action-btn btn-print" onclick="printContract()">🖨️ Imprimir</button>
+        <button class="action-btn btn-send" onclick="sendViaWhatsApp()">📲 Enviar (PDF)</button>
+    </div>
+
+</div>
+
+<script>
+    // Configuração da Logo - Como não temos o arquivo, usei um placeholder. 
+    // Quando você salvar o arquivo no celular ou site, certifique-se de que a logo 
+    // está na mesma pasta com o nome 'celebrar_buffet_logo.png'.
+    // Caso não queira usar imagem, remova a tag <img> no HTML.
+
+    // Configuração da Assinatura Digital
+    const canvas = document.getElementById('signature-pad');
+    const ctx = canvas.getContext('2d');
+    let writing = false;
+
+    // Ajusta o tamanho do canvas para o tamanho da tela do celular
+    function resizeCanvas() {
+        const ratio = Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        ctx.scale(ratio, ratio);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Funções para desenhar (mouse e touch)
+    function getMousePos(e) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top
+        };
+    }
+    function getTouchPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+            x: e.touches[0].clientX - rect.left,
+            y: e.touches[0].clientY - rect.top
+        };
+    }
+
+    // Eventos de Mouse
+    canvas.addEventListener('mousedown', (e) => { writing = true; ctx.beginPath(); ctx.moveTo(getMousePos(e).x, getMousePos(e).y); });
+    canvas.addEventListener('mousemove', (e) => { if (writing) { ctx.lineTo(getMousePos(e).x, getMousePos(e).y); ctx.stroke(); } });
+    window.addEventListener('mouseup', () => { writing = false; });
+
+    // Eventos de Touch (Celular)
+    canvas.addEventListener('touchstart', (e) => { writing = true; ctx.beginPath(); ctx.moveTo(getTouchPos(e).x, getTouchPos(e).y); e.preventDefault(); });
+    canvas.addEventListener('touchmove', (e) => { if (writing) { ctx.lineTo(getTouchPos(e).x, getTouchPos(e).y); ctx.stroke(); e.preventDefault(); } });
+    window.addEventListener('touchend', () => { writing = false; });
+
+    function clearSignature() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        resizeCanvas(); // Garante o tamanho correto após limpar
+    }
+
+    // Ações dos Botões
+
+    function saveData() {
+        // No navegador, isso apenas simula salvar. Para salvar de verdade no celular, 
+        // seria necessário um back-end ou um app nativo. 
+        // Esta função apenas avisa que os dados foram "processados".
+        alert("Dados processados localmente! Use 'Imprimir' ou 'Enviar' para gerar o contrato.");
+    }
+
+    function printContract() {
+        window.print();
+    }
+
+    function sendViaWhatsApp() {
+        const element = document.getElementById('contract-content');
+        const opt = {
+            margin: 1,
+            filename: 'contrato_celebrar_buffet.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        // Gera o PDF e tenta abrir no WhatsApp (Requer que html2pdf.js funcione)
+        html2pdf().set(opt).from(element).outputPdf().then(function(pdfAsString) {
+            // No celular, não é possível "enviar direto" um arquivo gerado no navegador 
+            // sem integração nativa ou hospedagem. O melhor método é gerar e baixar o PDF.
+            html2pdf().set(opt).from(element).save();
+            alert("Contrato baixado! Abra-o e compartilhe via WhatsApp com o Celebrar Buffet.");
+        });
+    }
+
+</script>
+
+</body>
+</html>
