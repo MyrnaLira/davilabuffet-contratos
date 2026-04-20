@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
+<!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Contrato Celebrar Buffet</title>
@@ -196,11 +194,7 @@
             .checkbox-group { grid-template-columns: 1fr; }
             .inline-group { grid-template-columns: 1fr; } 
         }
-    </style>
-</head>
-<body>
-
-<div class="container" id="contract-content">
+    </style></head><body><div class="container" id="contract-content">
     <div class="logo-container">
         <img src="celebrar_buffet_logo.png" alt="Celebrar Buffet Logo">
     </div>
@@ -344,10 +338,7 @@
         <button class="action-btn btn-save" onclick="saveData()">💾 Salvar</button>
         <button class="action-btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
         <button class="action-btn btn-send" onclick="gerarContratoPDF()">📲 Enviar PDF</button>
-    </div>
-</div>
-
-<div id="pagina-contrato">
+    </div></div><div id="pagina-contrato">
     <div class="logo-container">
         <img src="celebrar_buffet_logo.png">
     </div>
@@ -390,10 +381,7 @@
     <div style="margin-top: 30px; text-align: center;">
         <p style="margin: 5px 0;">__________________________________________</p>
         <p style="margin: 0;">Assinatura do Contratado</p>
-    </div>
-</div>
-
-<script>
+    </div></div><script>
     function verificarPromocional(isPromo) {
         document.getElementById('secao-promocional').style.display = isPromo ? 'block' : 'none';
     }
@@ -494,8 +482,4 @@
         alert("Dados processados e contrato atualizado!"); 
     }
 
-    window.onbeforeprint = preencherDadosContrato;
-</script>
-
-</body>
-</html>
+    window.onbeforeprint = preencherDadosContrato;</script></body></html>
