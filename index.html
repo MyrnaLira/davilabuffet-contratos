@@ -201,10 +201,10 @@
     <h2>DADOS DO EVENTO</h2>
     
     <div class="checkbox-group">
-        <label class="check-item"><input type="radio" name="pacote_tipo" onclick="verificarPromocional(false)"> Pacote Infantil</label>
-        <label class="check-item"><input type="radio" name="pacote_tipo" onclick="verificarPromocional(false)"> Pacote Adulto</label>
-        <label class="check-item"><input type="radio" name="pacote_tipo" onclick="verificarPromocional(false)"> Pacote Casamento</label>
-        <label class="check-item"><input type="radio" name="pacote_tipo" id="radio-promocional" onclick="verificarPromocional(true)"> Pacote Promocional</label>
+        <label class="check-item"><input type="radio" name="pacote_tipo" value="Pacote Infantil" onclick="verificarPromocional(false)"> Pacote Infantil</label>
+        <label class="check-item"><input type="radio" name="pacote_tipo" value="Pacote Adulto" onclick="verificarPromocional(false)"> Pacote Adulto</label>
+        <label class="check-item"><input type="radio" name="pacote_tipo" value="Pacote Casamento" onclick="verificarPromocional(false)"> Pacote Casamento</label>
+        <label class="check-item"><input type="radio" name="pacote_tipo" id="radio-promocional" value="Pacote Promocional" onclick="verificarPromocional(true)"> Pacote Promocional</label>
     </div>
 
     <div id="secao-promocional">
@@ -350,6 +350,7 @@
     <p><strong>Horário:</strong> <span id="out_horario"></span></p>
     <p><strong>Quantidade de Convidados:</strong> <span id="out_convidados"></span></p>
     <p><strong>E-mail:</strong> <span id="out_email"></span></p>
+    <p><strong>Tipo de Pacote:</strong> <span id="out_pacote"></span></p>
     <p><strong>Valor do pacote:</strong> <span id="out_valor_total"></span></p>
     <p><strong>Pago:</strong> <span id="out_pago"></span></p>
     <p><strong>Vencimento:</strong> <span id="out_vencimento"></span></p>
@@ -446,6 +447,22 @@
         document.getElementById('out_valor_total').innerText = document.getElementById('in_valor_total').value || "R$ 0,00";
         document.getElementById('out_pago').innerText = document.getElementById('in_pago').value || "R$ 0,00";
         
+        // Lógica para capturar o pacote selecionado
+        const pacotes = document.getElementsByName('pacote_tipo');
+        let pacoteSelecionado = "Não selecionado";
+        for (const r of pacotes) {
+            if (r.checked) {
+                pacoteSelecionado = r.value;
+                // Se for promocional, tenta pegar o nome da promoção
+                if (r.id === 'radio-promocional') {
+                    const nomePromo = document.getElementById('nome-pacote-promo').value;
+                    if(nomePromo) pacoteSelecionado += " (" + nomePromo + ")";
+                }
+                break;
+            }
+        }
+        document.getElementById('out_pacote').innerText = pacoteSelecionado;
+
         const frutas = document.getElementById('in_frutas_drinks').value;
         document.getElementById('out_frutas_drinks').innerText = frutas || "Não informado";
         
