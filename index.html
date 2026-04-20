@@ -20,11 +20,10 @@
             padding: 10px;
             color: var(--text-color);
             -webkit-user-select: none;
-            font-size: 15px;
         }
 
         .container {
-            max-width: 650px;
+            max-width: 600px;
             margin: 0 auto;
             background: var(--card-bg);
             padding: 20px;
@@ -34,119 +33,149 @@
 
         .logo-container {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-bottom: 2px solid var(--primary-gold);
-            padding-bottom: 8px;
+            padding-bottom: 10px;
         }
 
         .logo-container img {
-            max-width: 130px;
+            max-width: 150px;
             height: auto;
         }
 
         h1 {
-            font-size: 17px;
+            font-size: 18px;
             text-align: center;
             color: var(--primary-gold);
-            margin: 8px 0;
+            margin-top: 10px;
             text-transform: uppercase;
         }
 
         h2 {
-            font-size: 14px;
+            font-size: 16px;
             background-color: var(--primary-gold);
             color: white;
-            padding: 5px;
+            padding: 8px;
             border-radius: 5px;
-            margin-top: 15px;
-            text-transform: uppercase;
+            margin-top: 25px;
         }
 
-        .section-text {
-            font-size: 13px;
-            line-height: 1.4;
-            margin: 8px 0;
-            text-align: justify;
-        }
-
-        .field-group { margin-bottom: 10px; }
+        .field-group { margin-bottom: 15px; }
 
         label {
             display: block;
             font-weight: bold;
-            margin-bottom: 3px;
-            font-size: 13px;
+            margin-bottom: 5px;
+            font-size: 14px;
         }
 
-        input[type="text"], input[type="date"], input[type="number"], input[type="time"], input[type="email"] {
+        input[type="text"], input[type="date"], input[type="number"], input[type="time"] {
             width: 100%;
-            padding: 8px;
+            padding: 12px;
             border: 1px solid #ccc;
             border-radius: 6px;
             box-sizing: border-box;
-            font-size: 14px;
+            font-size: 16px;
             background-color: #fafafa;
             font-family: inherit;
         }
 
-        /* AJUSTE DE ESPAÇO NO CARDÁPIO */
-        .obs-box {
-            background-color: #fdfdfd;
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 6px;
-            margin: 8px 0; /* Reduzido de 15px */
-            font-size: 13px;
-            line-height: 1.4;
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
         }
 
-        .critical-alert {
-            color: #b71c1c;
-            font-weight: bold;
-            text-decoration: underline;
+        /* Ajuste específico para reduzir espaço na escolha do caldinho */
+        .caldinho-grid {
+            gap: 6px !important;
+            margin-top: 5px !important;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 8px; /* Reduzido de 10px */
+            border-radius: 6px;
+            border: 1px solid #eee;
+            cursor: pointer;
+            font-size: 13px; /* Levemente menor para economizar espaço */
+        }
+
+        .check-item input {
+            margin-right: 8px;
+            transform: scale(1.1);
+        }
+
+        .inline-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        #secao-promocional {
+            display: none;
+            background: #fff9f0;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ffeeba;
+            margin-top: 15px;
+        }
+
+        .warning-box {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-top: 5px;
         }
 
         .pix-box {
             background-color: #d4edda;
             border: 1px dashed #28a745;
-            padding: 12px;
+            padding: 15px;
             border-radius: 6px;
-            margin-top: 12px;
-            font-size: 13px;
+            margin-top: 15px;
+            font-size: 14px;
         }
 
-        .signature-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-            text-align: center;
-            font-size: 12px;
-        }
+        .signature-area { margin-top: 30px; text-align: center; }
 
         canvas#signature-pad {
-            border: 1px solid #ccc;
+            border: 2px solid #ccc;
             background-color: #fff;
             width: 100%;
-            height: 90px;
+            height: 150px;
             border-radius: 5px;
+            touch-action: none;
         }
 
         .action-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
         }
 
         button.action-btn {
-            padding: 10px;
+            padding: 15px;
             border: none;
             border-radius: 8px;
             color: white;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
             font-family: inherit;
         }
 
@@ -155,9 +184,16 @@
         .btn-send { background-color: #17a2b8; }
 
         @media print {
-            .action-buttons, .no-print { display: none !important; }
+            .action-buttons, .btn-clear, .warning-box, .no-print { display: none !important; }
             body { background: white; padding: 0; }
-            .container { box-shadow: none; border: none; }
+            .container { box-shadow: none; border: none; padding: 0; }
+        }
+        
+        @media (max-width: 480px) {
+            .action-buttons { grid-template-columns: 1fr; }
+            .checkbox-group { grid-template-columns: 1fr; }
+            .caldinho-grid { grid-template-columns: 1fr 1fr !important; } /* Mantém duas colunas no mobile para caldinho */
+            .inline-group { grid-template-columns: 1fr; } 
         }
     </style>
 </head>
@@ -169,94 +205,80 @@
         <img src="celebrar_buffet_logo.png" alt="Celebrar Buffet Logo">
     </div>
 
-    <h1>CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE BUFFET</h1>
+    <h1>FORMULÁRIO PARA CONTRATO DE BUFFET</h1>
 
-    <h2>DADOS DO CONTRATANTE E DO EVENTO</h2>
+    <h2>DADOS DO EVENTO</h2>
+    
+    <div class="checkbox-group">
+        <label class="check-item"><input type="radio" name="pacote_tipo" onclick="verificarPromocional(false)"> Pacote Infantil</label>
+        <label class="check-item"><input type="radio" name="pacote_tipo" onclick="verificarPromocional(false)"> Pacote Adulto</label>
+        <label class="check-item"><input type="radio" name="pacote_tipo" onclick="verificarPromocional(false)"> Pacote Casamento</label>
+        <label class="check-item"><input type="radio" name="pacote_tipo" id="radio-promocional" onclick="verificarPromocional(true)"> Pacote Promocional</label>
+    </div>
+
+    <div id="secao-promocional">
+        <label>Utiliza promoção?</label>
+        <div class="checkbox-group" style="grid-template-columns: 1fr 1fr; margin-bottom: 10px;">
+            <label class="check-item"><input type="radio" name="usa_promo_geral"> Sim</label>
+            <label class="check-item"><input type="radio" name="usa_promo_geral"> Não</label>
+        </div>
+        <label>Qual o nome da promoção?</label>
+        <input type="text" placeholder="Ex: Promoção de Verão" id="nome-pacote-promo">
+    </div>
+
+    <div class="field-group" style="margin-top: 15px;">
+        <label> Nome do Contratante:</label>
+        <input type="text" placeholder="Nome completo">
+    </div>
     
     <div class="field-group">
-        <label>Nome do Contratante:</label>
-        <input type="text" value="Márcia Gadilno da Silva">
+        <label> Endereço do Evento:</label>
+        <input type="text" placeholder="Endereço">
     </div>
 
-    <div class="field-group">
-        <label>Endereço do Evento:</label>
-        <input type="text" value="Rua A pontezinha">
+    <div class="inline-group">
+        <div><label> Data:</label><input type="date"></div>
+        <div><label> Horário:</label><input type="time"></div>
+        <div><label> Convidados:</label><input type="number" placeholder="Ex: 100"></div>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
-        <div class="field-group">
-            <label>Data:</label>
-            <input type="date" value="2026-04-05">
-        </div>
-        <div class="field-group">
-            <label>Horário:</label>
-            <input type="text" value="15:00 as 18:00">
-        </div>
-        <div class="field-group">
-            <label>Convidados:</label>
-            <input type="number" value="50">
-        </div>
+    <h2>INFORMAÇÕES DO BUFFET</h2>
+    
+    <label style="margin-bottom: 2px;">Escolha o sabor do caldinho:</label>
+    <div class="checkbox-group caldinho-grid">
+        <label class="check-item"><input type="checkbox"> Feijão</label>
+        <label class="check-item"><input type="checkbox"> Feijoada</label>
+        <label class="check-item"><input type="checkbox"> Camarão</label>
+        <label class="check-item"><input type="checkbox"> Costela</label>
+        <label class="check-item"><input type="checkbox"> Macaxeira</label>
+        <label class="check-item"><input type="checkbox"> Kenga</label>
+        <label class="check-item"><input type="checkbox"> Caldo Verde</label>
+        <label class="check-item"><input type="checkbox"> Peixe</label>
     </div>
 
-    <div class="field-group">
-        <label>E-mail:</label>
-        <input type="email" value="Pauloouberpop@gmail.com">
+    <div class="field-group" style="margin-top: 15px;">
+        <label>Prato Principal:</label>
+        <input type="text" placeholder="Descreva o prato principal">
     </div>
 
-    <h2>SERVIÇOS E PACOTE</h2>
-    <div class="section-text">
-        <strong>Pacote Contratado:</strong> Promocional 40 convidados (R$ 2.060) | <strong>Inclusos:</strong> Buffet, Decoração e Fotografia.
-    </div>
-
-    <div class="obs-box">
-        <strong>ITENS DO CARDÁPIO:</strong> Salgados, Cachorro quente, Pipoca, Batata frita, Pastel, Doces, Caldinho, Prato Quente.<br>
-        <strong>DRINKS (Frutas):</strong> Abacaxi, Maracujá, Graviola e Cajá.
-    </div>
-
-    <h2>OBSERVAÇÕES E REGRAS</h2>
-    <div class="section-text">
-        <ul style="margin: 0; padding-left: 20px;">
-            <li><strong>GELO:</strong> Responsabilidade do cliente.</li>
-            <li><strong>ESTRUTURA OBRIGATÓRIA:</strong> Fogão com gás, Freezer e Pia. <span class="critical-alert">(Multa de 15% na falta destes)</span>.</li>
-            <li><strong>TAXA DE LOCOMOÇÃO:</strong> R$ 100,00.</li>
-            <li><strong>DANOS:</strong> Cobrado valor de reposição.</li>
-            <li><strong>EXCEDENTE:</strong> R$ 35,00 por convidado extra.</li>
-            <li><strong>CANCELAMENTO:</strong> Não fazemos devolução de quantia paga.</li>
-        </ul>
-    </div>
-
-    <h2>VALORES E PAGAMENTO</h2>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-        <div class="field-group">
-            <label>Valor Total:</label>
-            <input type="text" value="R$ 2.060">
-        </div>
-        <div class="field-group">
-            <label>Entrada Paga:</label>
-            <input type="text" value="R$ 400">
-        </div>
+    <label>Salgados:</label>
+    <div class="checkbox-group" style="margin-top: 5px;">
+        <label class="check-item"><input type="radio" name="salgados_opt"> Sim</label>
+        <label class="check-item"><input type="radio" name="salgados_opt"> Não</label>
     </div>
 
     <div class="pix-box">
-        <strong>PIX: (81) 9 9453-9257 | Banco Agibank | Valquíria Gomes</strong><br>
-        <small>* Vencimento do restante: 05/03. O não pagamento ocasiona quebra de contrato.</small>
+        <strong>Pagamento (Pix):</strong> 81994539257 | Valquíria Gomes da Silva
     </div>
 
-    <div class="signature-grid">
-        <div>
-            <canvas id="signature-pad"></canvas>
-            <p>___________________<br>CONTRATANTE(A)</p>
-        </div>
-        <div>
-            <div style="height: 90px; display: flex; align-items: center; justify-content: center;">
-                <strong>Celebrar Buffet</strong>
-            </div>
-            <p>___________________<br>CONTRATADO(A)</p>
-        </div>
+    <div class="signature-area">
+        <label>Assinatura do Cliente:</label>
+        <canvas id="signature-pad"></canvas>
+        <button class="no-print" onclick="clearSignature()" style="margin-top:10px; padding:8px; cursor:pointer; font-family: inherit;">Limpar Assinatura</button>
     </div>
 
-    <div class="action-buttons no-print">
-        <button class="action-btn btn-save" onclick="alert('Salvo!')">💾 Salvar</button>
+    <div class="action-buttons">
+        <button class="action-btn btn-save" onclick="saveData()">💾 Salvar</button>
         <button class="action-btn btn-print" onclick="window.print()">🖨️ Imprimir</button>
         <button class="action-btn btn-send" onclick="sendViaWhatsApp()">📲 Enviar PDF</button>
     </div>
@@ -264,6 +286,11 @@
 </div>
 
 <script>
+    function verificarPromocional(isPromo) {
+        const secao = document.getElementById('secao-promocional');
+        secao.style.display = isPromo ? 'block' : 'none';
+    }
+
     const canvas = document.getElementById('signature-pad');
     const ctx = canvas.getContext('2d');
     let writing = false;
@@ -276,6 +303,7 @@
         ctx.strokeStyle = "#000";
         ctx.lineWidth = 2;
     }
+    
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
@@ -297,10 +325,12 @@
     canvas.addEventListener('touchmove', move, {passive: false});
     canvas.addEventListener('touchend', stop);
 
+    function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
     function sendViaWhatsApp() {
         const element = document.getElementById('contract-content');
         const opt = {
-            margin: 0.1,
+            margin: [0.3, 0.3], 
             filename: 'contrato_celebrar.pdf',
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2 },
@@ -308,6 +338,8 @@
         };
         html2pdf().set(opt).from(element).save();
     }
+
+    function saveData() { alert("Dados processados!"); }
 </script>
 
 </body>
