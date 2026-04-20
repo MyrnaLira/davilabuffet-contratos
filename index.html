@@ -31,12 +31,17 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* Estilo do Contrato que será gerado no PDF */
         #pagina-contrato {
-            display: none; /* Oculto na visualização do formulário */
+            display: none;
             padding: 30px;
             color: black;
-            line-height: 1.6;
+            line-height: 1.2; /* Linhas mais próximas */
+        }
+
+        /* Removendo espaço entre as linhas específicas do contrato */
+        .info-linha {
+            margin: 0;
+            padding: 2px 0;
         }
 
         .logo-container {
@@ -191,7 +196,6 @@
 <body>
 
 <div class="container" id="contract-content">
-    
     <div class="logo-container">
         <img src="celebrar_buffet_logo.png" alt="Celebrar Buffet Logo">
     </div>
@@ -342,64 +346,55 @@
     <div class="logo-container">
         <img src="celebrar_buffet_logo.png">
     </div>
-    <h1 style="color: black; border: none;">CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE BUFFET</h1>
+    <h1 style="color: black; border: none; margin-bottom: 20px;">CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE BUFFET</h1>
     
-    <p><strong>Nome:</strong> <span id="out_nome"></span></p>
-    <p><strong>Endereço do Evento:</strong> <span id="out_endereco"></span></p>
-    <p><strong>Data do Evento:</strong> <span id="out_data"></span></p>
-    <p><strong>Horário:</strong> <span id="out_horario"></span></p>
-    <p><strong>Quantidade de Convidados:</strong> <span id="out_convidados"></span></p>
-    <p><strong>E-mail:</strong> <span id="out_email"></span></p>
-    <p><strong>Tipo de Pacote:</strong> <span id="out_pacote"></span></p>
-    <p><strong>Valor do pacote:</strong> <span id="out_valor_total"></span></p>
-    <p><strong>Pago:</strong> <span id="out_pago"></span></p>
-    <p><strong>Vencimento:</strong> <span id="out_vencimento"></span></p>
+    <p class="info-linha"><strong>Nome:</strong> <span id="out_nome"></span></p>
+    <p class="info-linha"><strong>Endereço do Evento:</strong> <span id="out_endereco"></span></p>
+    <p class="info-linha"><strong>Data do Evento:</strong> <span id="out_data"></span></p>
+    <p class="info-linha"><strong>Horário:</strong> <span id="out_horario"></span></p>
+    <p class="info-linha"><strong>Quantidade de Convidados:</strong> <span id="out_convidados"></span></p>
+    <p class="info-linha"><strong>E-mail:</strong> <span id="out_email"></span></p>
+    <p class="info-linha"><strong>Tipo de Pacote:</strong> <span id="out_pacote"></span></p>
+    <p class="info-linha"><strong>Valor do pacote:</strong> <span id="out_valor_total"></span></p>
+    <p class="info-linha"><strong>Pago:</strong> <span id="out_pago"></span></p>
+    <p class="info-linha"><strong>Vencimento:</strong> <span id="out_vencimento"></span></p>
     
-    <p style="font-size: 12px; margin-top: 20px;">
+    <p style="font-size: 12px; margin-top: 15px;">
         (Ressaltamos que o não pagamento da modalidade mensal na data combinada sem aviso ocasiona a quebra de contrato)
     </p>
     
-    <p style="font-size: 12px; margin-top: 20px;">
+    <p style="font-size: 12px; margin-top: 15px;">
         OBSERVAÇÕES:      
-        <br>
-        • FRUTAS PARA DRINKS: <span id="out_frutas_drinks">Nenhuma selecionada</span><br>
-        • O fornecimento do gelo para os drinks é de responsabilidade do cliente, considerando que realizamos 
-        mais de um evento por dia e não dispomos de condições logísticas para o transporte adequado do gelo.      
-        <br>• LOCAL DA FESTA É OBRIGATÓRIO CONTER:      
-        <br> &nbsp;&nbsp;&nbsp;&nbsp; • Fogão com gás      
-        <br> &nbsp;&nbsp;&nbsp;&nbsp; • Freezer     
-        <br> &nbsp;&nbsp;&nbsp;&nbsp; • Pia      
-        <br>
-        (Sujeito a multa de 15% sobre o valor do pacote na falta de algum desses itens sem a comunicação prévia no momento contratual).      
+        <br>• FRUTAS PARA DRINKS: <span id="out_frutas_drinks">Nenhuma selecionada</span>
+        <br>• O fornecimento do gelo para os drinks é de responsabilidade do cliente, considerando que realizamos mais de um evento por dia e não dispomos de condições logísticas para o transporte adequado do gelo.      
+        <br>• LOCAL DA FESTA É OBRIGATÓRIO CONTER: Fogão com gás, Freezer e Pia.
+        <br>(Sujeito a multa de 15% sobre o valor do pacote na falta de algum desses itens sem a comunicação prévia no momento contratual).      
         <br><br>
-        TAXA DE LOCOMOÇÃO:      
-        <br> &nbsp;&nbsp;&nbsp;&nbsp; • R$ 100,00      
-        <br> &nbsp;&nbsp;&nbsp;&nbsp; • É de total responsabilidade do cliente o cuidado e manuseio adequado com pratarias, estrutura do bar e toalhas. Em caso de danos, será cobrado o valor de reposição conforme o item danificado.      
-        <br> &nbsp;&nbsp;&nbsp;&nbsp; • Ultrapassando a quantidade de convidados contrato será cobrado o valor de R$ 35,00 por convidado excedente.      
-        <br> &nbsp;&nbsp;&nbsp;&nbsp; • As equipes, cozinha e drinks chega ao local do evento com 1 hora de antecedência para preparar as praças é necessário algum responsável no local.      
-        <br> &nbsp;&nbsp;&nbsp;&nbsp; • Não fazemos devolução de quantia paga .      
+        TAXA DE LOCOMOÇÃO: R$ 100,00      
+        <br>• É de total responsabilidade do cliente o cuidado e manuseio adequado com pratarias, estrutura do bar e toalhas. Em caso de danos, será cobrado o valor de reposição.
+        <br>• Ultrapassando a quantidade de convidados contrato será cobrado o valor de R$ 35,00 por convidado excedente.      
+        <br>• As equipes chegam ao local com 1 hora de antecedência. É necessário um responsável no local.      
+        <br>• Não fazemos devolução de quantia paga.      
     </p>
     
-    <div style="margin-top: 50px; text-align: center;">
-        <img id="img-assinatura-contratante" style="max-height: 80px; border-bottom: 1px solid #000;"><br>
-        <p>__________________________________________</p>
-        <p>Assinatura do Contratante</p>
+    <div style="margin-top: 40px; text-align: center;">
+        <img id="img-assinatura-contratante" style="max-height: 60px; border-bottom: 1px solid #000;"><br>
+        <p style="margin: 5px 0;">__________________________________________</p>
+        <p style="margin: 0;">Assinatura do Contratante</p>
     </div>
-    <div style="margin-top: 50px; text-align: center;">
-        <p>__________________________________________</p>
-        <p>Assinatura do Contratado</p>
+    <div style="margin-top: 30px; text-align: center;">
+        <p style="margin: 5px 0;">__________________________________________</p>
+        <p style="margin: 0;">Assinatura do Contratado</p>
     </div>
 </div>
 
 <script>
     function verificarPromocional(isPromo) {
-        const secao = document.getElementById('secao-promocional');
-        secao.style.display = isPromo ? 'block' : 'none';
+        document.getElementById('secao-promocional').style.display = isPromo ? 'block' : 'none';
     }
 
     function verificarDrinks(temDrinks) {
-        const secaoFrutas = document.getElementById('secao-frutas-drinks');
-        secaoFrutas.style.display = temDrinks ? 'block' : 'none';
+        document.getElementById('secao-frutas-drinks').style.display = temDrinks ? 'block' : 'none';
     }
 
     const canvas = document.getElementById('signature-pad');
@@ -447,13 +442,11 @@
         document.getElementById('out_valor_total').innerText = document.getElementById('in_valor_total').value || "R$ 0,00";
         document.getElementById('out_pago').innerText = document.getElementById('in_pago').value || "R$ 0,00";
         
-        // Lógica para capturar o pacote selecionado
         const pacotes = document.getElementsByName('pacote_tipo');
         let pacoteSelecionado = "Não selecionado";
         for (const r of pacotes) {
             if (r.checked) {
                 pacoteSelecionado = r.value;
-                // Se for promocional, tenta pegar o nome da promoção
                 if (r.id === 'radio-promocional') {
                     const nomePromo = document.getElementById('nome-pacote-promo').value;
                     if(nomePromo) pacoteSelecionado += " (" + nomePromo + ")";
@@ -463,16 +456,14 @@
         }
         document.getElementById('out_pacote').innerText = pacoteSelecionado;
 
-        const frutas = document.getElementById('in_frutas_drinks').value;
-        document.getElementById('out_frutas_drinks').innerText = frutas || "Não informado";
+        document.getElementById('out_frutas_drinks').innerText = document.getElementById('in_frutas_drinks').value || "Não informado";
         
         const dataEv = document.getElementById('in_data').value;
         const dataVen = document.getElementById('in_vencimento').value;
         document.getElementById('out_data').innerText = dataEv ? dataEv.split('-').reverse().join('/') : "__________";
         document.getElementById('out_vencimento').innerText = dataVen ? dataVen.split('-').reverse().join('/') : "__________";
 
-        const dataURL = canvas.toDataURL();
-        document.getElementById('img-assinatura-contratante').src = dataURL;
+        document.getElementById('img-assinatura-contratante').src = canvas.toDataURL();
     }
 
     function gerarContratoPDF() {
