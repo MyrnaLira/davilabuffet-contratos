@@ -271,7 +271,7 @@
 
     <h2>DRINKS</h2>
     
-    <label>Terá drinks no evento?</label>
+    <label>Terá drinks no evento? (Escolha até 4 opções)</label>
     <div class="checkbox-group">
         <label class="check-item"><input type="radio" name="drinks_opt" onclick="verificarDrinks(true)"> Sim</label>
         <label class="check-item"><input type="radio" name="drinks_opt" onclick="verificarDrinks(false)"> Não</label>
@@ -380,12 +380,11 @@
     </p>
     
     <div style="margin-top: 50px; text-align: center;">
-        <img id="img-assinatura" style="max-height: 80px; border-bottom: 1px solid #000;"><br>
+        <img id="img-assinatura-contratante" style="max-height: 80px; border-bottom: 1px solid #000;"><br>
         <p>__________________________________________</p>
         <p>Assinatura do Contratante</p>
     </div>
     <div style="margin-top: 50px; text-align: center;">
-        <img id="img-assinatura" style="max-height: 80px; border-bottom: 1px solid #000;"><br>
         <p>__________________________________________</p>
         <p>Assinatura do Contratado</p>
     </div>
@@ -397,7 +396,6 @@
         secao.style.display = isPromo ? 'block' : 'none';
     }
 
-    // Função para mostrar/esconder campo de frutas
     function verificarDrinks(temDrinks) {
         const secaoFrutas = document.getElementById('secao-frutas-drinks');
         secaoFrutas.style.display = temDrinks ? 'block' : 'none';
@@ -448,7 +446,6 @@
         document.getElementById('out_valor_total').innerText = document.getElementById('in_valor_total').value || "R$ 0,00";
         document.getElementById('out_pago').innerText = document.getElementById('in_pago').value || "R$ 0,00";
         
-        // Preencher frutas
         const frutas = document.getElementById('in_frutas_drinks').value;
         document.getElementById('out_frutas_drinks').innerText = frutas || "Não informado";
         
@@ -458,7 +455,7 @@
         document.getElementById('out_vencimento').innerText = dataVen ? dataVen.split('-').reverse().join('/') : "__________";
 
         const dataURL = canvas.toDataURL();
-        document.getElementById('img-assinatura').src = dataURL;
+        document.getElementById('img-assinatura-contratante').src = dataURL;
     }
 
     function gerarContratoPDF() {
