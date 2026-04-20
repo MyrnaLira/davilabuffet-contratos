@@ -118,7 +118,7 @@
             margin-top: 10px;
         }
 
-        #secao-promocional {
+        #secao-promocional, #secao-frutas-drinks {
             display: none;
             background: #fff9f0;
             padding: 15px;
@@ -273,8 +273,13 @@
     
     <label>Terá drinks no evento?</label>
     <div class="checkbox-group">
-        <label class="check-item"><input type="radio" name="drinks_opt"> Sim</label>
-        <label class="check-item"><input type="radio" name="drinks_opt"> Não</label>
+        <label class="check-item"><input type="radio" name="drinks_opt" onclick="verificarDrinks(true)"> Sim</label>
+        <label class="check-item"><input type="radio" name="drinks_opt" onclick="verificarDrinks(false)"> Não</label>
+    </div>
+
+    <div id="secao-frutas-drinks">
+        <label>Quais frutas deseja para os drinks?</label>
+        <input type="text" id="in_frutas_drinks" placeholder="Ex: Morango, Abacaxi, Limão, Kiwi">
     </div>
 
     <h2>DECORAÇÃO E FOTOGRAFIA</h2>
@@ -355,25 +360,26 @@
         (Ressaltamos que o não pagamento da modalidade mensal na data combinada sem aviso ocasiona a quebra de contrato)
     </p>
     
-<p style="font-size: 12px; margin-top: 20px;">
-    OBSERVAÇÕES:     
-     
-    • O fornecimento do gelo para os drinks é de responsabilidade do cliente, considerando que realizamos 
-    mais de um evento por dia e não dispomos de condições logísticas para o transporte adequado do gelo.      
-    • LOCAL DA FESTA É OBRIGATÓRIO CONTER:     
-        • Fogão com gás      
-        • Freezer     
-        • Pia     
-     
-(Sujeito a multa de 15% sobre o valor do pacote na falta de algum desses itens sem a comunicação prévia no momento contratual).     
-     
-    TAXA DE LOCOMOÇÃO:      
-        • R$ 100,00     
-        • É de total responsabilidade do cliente o cuidado e manuseio adequado com pratarias, estrutura do bar e toalhas. Em caso de danos, será cobrado o valor de reposição conforme o item danificado.     
-        • Ultrapassando a quantidade de convidados contrato será cobrado o valor de R$ 35,00 por convidado excedente.     
-        • As equipes, cozinha e drinks chega ao local do evento com 1 hora de antecedência para preparar as praças é necessário algum responsável no local.     
-        • Não fazemos devolução de quantia paga .     
-     </p>
+    <p style="font-size: 12px; margin-top: 20px;">
+        OBSERVAÇÕES:      
+        <br>
+        • FRUTAS PARA DRINKS: <span id="out_frutas_drinks">Nenhuma selecionada</span><br>
+        • O fornecimento do gelo para os drinks é de responsabilidade do cliente, considerando que realizamos 
+        mais de um evento por dia e não dispomos de condições logísticas para o transporte adequado do gelo.      
+        <br>• LOCAL DA FESTA É OBRIGATÓRIO CONTER:      
+        <br> &nbsp;&nbsp;&nbsp;&nbsp; • Fogão com gás      
+        <br> &nbsp;&nbsp;&nbsp;&nbsp; • Freezer     
+        <br> &nbsp;&nbsp;&nbsp;&nbsp; • Pia      
+        <br>
+        (Sujeito a multa de 15% sobre o valor do pacote na falta de algum desses itens sem a comunicação prévia no momento contratual).      
+        <br><br>
+        TAXA DE LOCOMOÇÃO:      
+        <br> &nbsp;&nbsp;&nbsp;&nbsp; • R$ 100,00      
+        <br> &nbsp;&nbsp;&nbsp;&nbsp; • É de total responsabilidade do cliente o cuidado e manuseio adequado com pratarias, estrutura do bar e toalhas. Em caso de danos, será cobrado o valor de reposição conforme o item danificado.      
+        <br> &nbsp;&nbsp;&nbsp;&nbsp; • Ultrapassando a quantidade de convidados contrato será cobrado o valor de R$ 35,00 por convidado excedente.      
+        <br> &nbsp;&nbsp;&nbsp;&nbsp; • As equipes, cozinha e drinks chega ao local do evento com 1 hora de antecedência para preparar as praças é necessário algum responsável no local.      
+        <br> &nbsp;&nbsp;&nbsp;&nbsp; • Não fazemos devolução de quantia paga .      
+    </p>
     
     <div style="margin-top: 50px; text-align: center;">
         <img id="img-assinatura" style="max-height: 80px; border-bottom: 1px solid #000;"><br>
@@ -386,6 +392,12 @@
     function verificarPromocional(isPromo) {
         const secao = document.getElementById('secao-promocional');
         secao.style.display = isPromo ? 'block' : 'none';
+    }
+
+    // Função para mostrar/esconder campo de frutas
+    function verificarDrinks(temDrinks) {
+        const secaoFrutas = document.getElementById('secao-frutas-drinks');
+        secaoFrutas.style.display = temDrinks ? 'block' : 'none';
     }
 
     const canvas = document.getElementById('signature-pad');
@@ -425,7 +437,6 @@
     function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
 
     function preencherDadosContrato() {
-        // Função que pega do formulário e joga no contrato
         document.getElementById('out_nome').innerText = document.getElementById('in_nome').value || "__________";
         document.getElementById('out_email').innerText = document.getElementById('in_email').value || "__________";
         document.getElementById('out_endereco').innerText = document.getElementById('in_endereco').value || "__________";
@@ -434,13 +445,15 @@
         document.getElementById('out_valor_total').innerText = document.getElementById('in_valor_total').value || "R$ 0,00";
         document.getElementById('out_pago').innerText = document.getElementById('in_pago').value || "R$ 0,00";
         
-        // Formatar datas para o formato BR
+        // Preencher frutas
+        const frutas = document.getElementById('in_frutas_drinks').value;
+        document.getElementById('out_frutas_drinks').innerText = frutas || "Não informado";
+        
         const dataEv = document.getElementById('in_data').value;
         const dataVen = document.getElementById('in_vencimento').value;
         document.getElementById('out_data').innerText = dataEv ? dataEv.split('-').reverse().join('/') : "__________";
         document.getElementById('out_vencimento').innerText = dataVen ? dataVen.split('-').reverse().join('/') : "__________";
 
-        // Passar assinatura
         const dataURL = canvas.toDataURL();
         document.getElementById('img-assinatura').src = dataURL;
     }
@@ -448,7 +461,7 @@
     function gerarContratoPDF() {
         preencherDadosContrato();
         const element = document.getElementById('pagina-contrato');
-        element.style.display = 'block'; // Mostra para o PDF capturar
+        element.style.display = 'block';
         
         const opt = {
             margin: [0.5, 0.5], 
@@ -459,7 +472,7 @@
         };
         
         html2pdf().set(opt).from(element).save().then(() => {
-            element.style.display = 'none'; // Esconde de novo
+            element.style.display = 'none';
         });
     }
 
@@ -468,7 +481,6 @@
         alert("Dados processados e contrato atualizado!"); 
     }
 
-    // Ajuste para o botão imprimir funcionar com o contrato preenchido
     window.onbeforeprint = preencherDadosContrato;
 </script>
 
