@@ -258,7 +258,7 @@
 
     <div class="field-group">
         <label>Prato Principal:</label>
-        <input type="text" placeholder="Descreva o prato principal">
+        <input type="text" id="in_prato_principal" placeholder="Descreva o prato principal">
     </div>
 
     <label>Salgados:</label>
@@ -270,7 +270,7 @@
     <label>Bebidas inclusas:</label>
     <div class="checkbox-group">
         <label class="check-item"><input type="radio" name="bebidas_opt"> Refrigerante (sortidos)</label>
-        <label class="check-item"><input type="radio" name="bebidas_opt"> Suco (sortidos)</label>
+        <label class="check-item"><input type="radio" name="bebidas_opt"> Su Suco (sortidos)</label>
     </div>
 
     <h2>DRINKS</h2>
@@ -352,11 +352,12 @@
     <p class="info-linha"><strong>Quantidade de Convidados:</strong> <span id="out_convidados"></span></p>
     <p class="info-linha"><strong>E-mail:</strong> <span id="out_email"></span></p>
     <p class="info-linha"><strong>Tipo de Pacote:</strong> <span id="out_pacote"></span></p>
+    <p class="info-linha"><strong>Prato Principal:</strong> <span id="out_prato_principal">Não informado</span></p>
     <p class="info-linha"><strong>Valor do pacote:</strong> <span id="out_valor_total"></span></p>
     <p class="info-linha"><strong>Pago:</strong> <span id="out_pago"></span></p>
     <p class="info-linha"><strong>Vencimento:</strong> <span id="out_vencimento"></span></p>
-    <p class="info-linha"><strong><strong>Frutas para Drink:</strong> <span id="out_frutas_drinks">Não informado</span></p>
-    <p class="info-linha"><strong><strong>Taxa de Locomoção:</strong> R$ 100,00</p>
+    <p class="info-linha" style="font-size: 13px;"><strong>• FRUTAS PARA DRINKS:</strong> <span id="out_frutas_drinks">Não informado</span></p>
+    <p class="info-linha" style="font-size: 13px;"><strong>TAXA DE LOCOMOÇÃO:</strong> R$ 100,00</p>
     
     <p style="font-size: 12px; margin-top: 15px;" class="alert-text">
         (Ressaltamos que o não pagamento da modalidade mensal na data combinada sem aviso ocasiona a quebra de contrato)
@@ -434,6 +435,7 @@
         document.getElementById('out_horario').innerText = document.getElementById('in_horario').value || "__________";
         document.getElementById('out_valor_total').innerText = document.getElementById('in_valor_total').value || "R$ 0,00";
         document.getElementById('out_pago').innerText = document.getElementById('in_pago').value || "R$ 0,00";
+        document.getElementById('out_prato_principal').innerText = document.getElementById('in_prato_principal').value || "Não informado";
         
         const pacotes = document.getElementsByName('pacote_tipo');
         let pacoteSelecionado = "Não selecionado";
