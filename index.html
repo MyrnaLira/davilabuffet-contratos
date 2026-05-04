@@ -157,32 +157,29 @@
         }
 
         .action-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
+            display: flex;
+            justify-content: center;
             margin-top: 40px;
             border-top: 1px solid #eee;
             padding-top: 20px;
         }
 
         button.action-btn {
-            padding: 15px;
+            padding: 15px 40px;
             border: none;
             border-radius: 8px;
             color: white;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 10px;
             font-family: inherit;
         }
 
-        .btn-save { background-color: #28a745; }
         .btn-print { background-color: #34495e; }
-        .btn-send { background-color: #17a2b8; }
 
         @media print {
             .action-buttons, .btn-clear, .warning-box, .no-print, #contract-content { display: none !important; }
@@ -191,7 +188,6 @@
         }
         
         @media (max-width: 480px) {
-            .action-buttons { grid-template-columns: 1fr; }
             .checkbox-group { grid-template-columns: 1fr; }
             .inline-group { grid-template-columns: 1fr; } 
         }
@@ -337,7 +333,7 @@
     </div>
 
     <div class="action-buttons">
-        <button class="action-btn btn-print" onclick="window.print()">🖨️ Salvar</button>
+        <button class="action-btn btn-print" onclick="window.print()">🖨️ Imprimir Contrato</button>
     </div></div><div id="pagina-contrato">
     <div class="logo-container">
         <img src="celebrar_buffet_logo.png">
@@ -458,29 +454,6 @@
         document.getElementById('out_vencimento').innerText = dataVen ? dataVen.split('-').reverse().join('/') : "__________";
 
         document.getElementById('img-assinatura-contratante').src = canvas.toDataURL();
-    }
-
-    function gerarContratoPDF() {
-        preencherDadosContrato();
-        const element = document.getElementById('pagina-contrato');
-        element.style.display = 'block';
-        
-        const opt = {
-            margin: [0.5, 0.5], 
-            filename: 'contrato_celebrar_buffet.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-        };
-        
-        html2pdf().set(opt).from(element).save().then(() => {
-            element.style.display = 'none';
-        });
-    }
-
-    function saveData() { 
-        preencherDadosContrato();
-        alert("Dados processados e contrato atualizado!"); 
     }
 
     window.onbeforeprint = preencherDadosContrato;</script></body></html>
