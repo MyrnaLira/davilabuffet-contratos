@@ -5,7 +5,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
-            --primary-gold: #c69c6d;
+            --primary-black: #1a1a1a;
+            --accent-gold: #d4af37;
             --text-color: #333;
             --bg-color: #f4f7f6;
             --card-bg: #fff;
@@ -51,7 +52,7 @@
         .logo-container {
             text-align: center;
             margin-bottom: 20px;
-            border-bottom: 2px solid var(--primary-gold);
+            border-bottom: 2px solid var(--accent-gold);
             padding-bottom: 10px;
         }
 
@@ -63,18 +64,21 @@
         h1 {
             font-size: 18px;
             text-align: center;
-            color: var(--primary-gold);
+            color: var(--primary-black);
             margin-top: 10px;
             text-transform: uppercase;
+            border-bottom: 1px solid var(--accent-gold);
+            padding-bottom: 5px;
         }
 
         h2 {
             font-size: 16px;
-            background-color: var(--primary-gold);
-            color: white;
+            background-color: var(--primary-black);
+            color: var(--accent-gold);
             padding: 8px;
             border-radius: 5px;
             margin-top: 25px;
+            border-left: 4px solid var(--accent-gold);
         }
 
         .field-group { margin-bottom: 15px; }
@@ -95,6 +99,11 @@
             font-size: 16px;
             background-color: #fafafa;
             font-family: inherit;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, input[type="time"]:focus, input[type="email"]:focus {
+            border-color: var(--accent-gold);
+            outline: none;
         }
 
         .checkbox-group {
@@ -168,7 +177,8 @@
             padding: 15px 40px;
             border: none;
             border-radius: 8px;
-            color: white;
+            color: var(--accent-gold);
+            background-color: var(--primary-black);
             font-weight: bold;
             font-size: 16px;
             cursor: pointer;
@@ -177,9 +187,12 @@
             justify-content: center;
             gap: 10px;
             font-family: inherit;
+            transition: background 0.3s;
         }
 
-        .btn-print { background-color: #34495e; }
+        button.action-btn:hover {
+            background-color: #333;
+        }
 
         @media print {
             .action-buttons, .btn-clear, .warning-box, .no-print, #contract-content { display: none !important; }
@@ -333,7 +346,7 @@
     </div>
 
     <div class="action-buttons">
-        <button class="action-btn btn-print" onclick="window.print()"> Enviar Contrato</button>
+        <button class="action-btn" onclick="window.print()">🖨️ Enviar Contrato</button>
     </div></div><div id="pagina-contrato">
     <div class="logo-container">
         <img src="davilabuffet_logo.jpg">
