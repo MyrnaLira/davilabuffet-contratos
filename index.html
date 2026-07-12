@@ -202,10 +202,11 @@
             margin-top: 40px;
             border-top: 1px solid #eee;
             padding-top: 20px;
+            gap: 15px;
         }
 
         button.action-btn {
-            padding: 15px 40px;
+            padding: 15px 30px;
             border: none;
             border-radius: 8px;
             color: var(--accent-gold);
@@ -225,6 +226,15 @@
             background-color: #333;
         }
 
+        button.action-btn.download-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        button.action-btn.download-btn:hover {
+            background-color: #218838;
+        }
+
         @media print {
             .action-buttons, .btn-clear, .warning-box, .no-print, #contract-content { display: none !important; }
             #pagina-contrato { display: block !important; }
@@ -234,6 +244,7 @@
         @media (max-width: 480px) {
             .checkbox-group { grid-template-columns: 1fr; }
             .inline-group { grid-template-columns: 1fr; } 
+            .action-buttons { flex-direction: column; }
         }
     </style></head><body><div class="container" id="contract-content">
     <div class="logo-container">
@@ -405,6 +416,7 @@
 
     <div class="action-buttons">
         <button class="action-btn" onclick="tentarEnviarContrato()">🖨️ Enviar Contrato</button>
+        <button class="action-btn download-btn" onclick="baixarContratoPDF()">📥 Baixar Contrato em PDF</button>
     </div>
 </div>
 
@@ -537,14 +549,46 @@
         document.getElementById('img-assinatura-contratante').src = canvas.toDataURL();
     }
 
-    function tentarEnviarContrato() {
+    function validarAceite() {
         const chkAceite = document.getElementById('chk_aceite');
         if (!chkAceite.checked) {
             alert('Você precisa ler e marcar a caixa "ACEITO OS TERMOS E OBSERVAÇÕES ACIMA" antes de prosseguir.');
             chkAceite.focus();
-            return;
+            return false;
         }
+        return true;
+    }
+
+    function tentarEnviarContrato() {
+        if (!validarAceite()) return;
         window.print();
+    }
+
+    function baixarContratoPDF() {
+        if (!validarAceite()) return;
+        
+        // Atualiza as tags do contrato com o que foi digitado
+        preencherDadosContrato();
+        
+        // Alvo da conversão (o documento formatado)
+        const elementoContrato = document.getElementById('pagina-contrato');
+        
+        // Torna visível temporariamente para renderização do script html2pdf
+        elementoContrato.style.display = 'block';
+        
+        const nomeCliente = document.getElementById('in_nome').value || 'Cliente';
+        const opt = {
+            margin:       10,
+            filename:     `Contrato_Davila_Buffet_${nomeCliente}.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Executa a promessa e esconde o elemento de volta após gerar
+        html2pdf().set(opt).from(elementoContrato).save().then(() => {
+            elementoContrato.style.display = 'none';
+        });
     }
 
     window.onbeforeprint = preencherDadosContrato;
