@@ -212,7 +212,7 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify(content): center;
             gap: 10px;
             font-family: inherit;
             transition: background 0.3s;
@@ -385,7 +385,7 @@
     </div>
 
     <div style="text-align: center; margin-top: 15px; margin-bottom: 5px;">
-        <button class="action-btn" onclick="baixarContratoOficial()" style="background-color: #1e4620; color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; width: 100%; max-width: 100%;">
+        <button type="button" class="action-btn" onclick="baixarContratoOficial()" style="background-color: #1e4620; color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; width: 100%; max-width: 100%;">
             📥 Baixar Cláusulas do Contrato (PDF)
         </button>
     </div>
@@ -510,7 +510,7 @@
         let pacoteSelecionado = "Não selecionado";
         for (const r of pacotes) {
             if (r.checked) {
-                let pacoteSelecionado = r.value;
+                pacoteSelecionado = r.value;
                 if (r.id === 'radio-promocional') {
                     const nomePromo = document.getElementById('nome-pacote-promo').value;
                     if(nomePromo) pacoteSelecionado += " (" + nomePromo + ")";
@@ -541,7 +541,6 @@
     }
 
     function baixarContratoOficial() {
-        // Cria um elemento temporário para estruturar o PDF
         const conteudoDoc = document.createElement('div');
         conteudoDoc.style.fontFamily = 'Times New Roman, serif';
         conteudoDoc.style.padding = '50px';
@@ -549,13 +548,12 @@
         conteudoDoc.style.lineHeight = '1.6';
         conteudoDoc.style.fontSize = '14px';
 
-        // Insere todo o conteúdo estruturado do seu contrato
         conteudoDoc.innerHTML = `
             <h2 style="text-align: center; margin-bottom: 5px; background: none; color: #000; border: none; padding: 0;">CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE BUFFET E BAR</h2>
             <h3 style="text-align: center; margin-top: 0; margin-bottom: 30px;">D'AVILA BUFFET E DRINKS</h3>
             
             <p style="text-align: justify; text-indent: 40px;">
-                Por este instrumente particular, de um lado, <strong>D'AVILA BUFFET E DRINKS</strong>, doravante denominada simplesmente CONTRATADA, e, de outro lado, a pessoa física ou jurídica qualificada no termo de adesão/anexo deste instrumento, doravante denominada simplesmente CONTRANTE, têm entre si justo e contratado o presente instrumento, mediante as cláusulas e condições a seguir expostas:
+                Por este instrumento particular, de um lado, <strong>D'AVILA BUFFET E DRINKS</strong>, doravante denominada simplesmente CONTRATADA, e, de outro lado, a pessoa física ou jurídica qualificada no termo de adesão/anexo deste instrumento, doravante denominada simplesmente CONTRATANTE, têm entre si justo e contratado o presente instrumento, mediante as cláusulas e condições a seguir expostas:
             </p>
 
             <p><strong>1. DO OBJETO DO CONTRATO</strong></p>
@@ -576,7 +574,7 @@
 
             <p><strong>3. DO LOCAL DA FESTA E INFRAESTRUTURA OBRIGATÓRIA</strong></p>
             <p style="text-align: justify; text-indent: 20px;">
-                3.1. O local escolhido para a realização do evento é de inteira responsabilidade da CONTRATANTE, que deverá garantir condições técnicas de segurança e acesso para a equipe da CONTRATADA.
+                3.1. O local escolher para a realização do evento é de inteira responsabilidade da CONTRATANTE, que deverá garantir condições técnicas de segurança e acesso para a equipe da CONTRATADA.
             </p>
             <p style="text-align: justify; text-indent: 20px;">
                 3.2. Infraestrutura Mínima Exigida: Para a perfeita execução dos serviços, o <strong>LOCAL DA FESTA É OBRIGATÓRIO CONTER</strong> os seguintes itens em pleno funcionamento:
@@ -646,17 +644,19 @@
             </div>
         `;
 
-        // Configurações do arquivo PDF final
+        document.body.appendChild(conteudoDoc);
+
         const opt = {
             margin:       15,
             filename:     'Contrato_Davila_Buffet_e_Drinks.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 },
+            html2canvas:  { scale: 2, useCORS: true },
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
-        // Executa a biblioteca html2pdf
-        html2pdf().set(opt).from(conteudoDoc).save();
+        html2pdf().set(opt).from(conteudoDoc).save().then(() => {
+            document.body.removeChild(conteudoDoc);
+        });
     }
 
     window.onbeforeprint = preencherDadosContrato;
