@@ -90,7 +90,7 @@
             font-size: 14px;
         }
 
-        input[type="text"], input[type="date"], input[type="number"], input[type="time"], input[type="email"], textarea {
+        input[type="text"], input[type="date"], input[type="number"], input[type="time"], input[type="email"] {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
@@ -101,12 +101,7 @@
             font-family: inherit;
         }
 
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, input[type="time"]:focus, input[type="email"]:focus, textarea:focus {
+        input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, input[type="time"]:focus, input[type="email"]:focus {
             border-color: var(--accent-gold);
             outline: none;
         }
@@ -202,18 +197,16 @@
             margin-top: 40px;
             border-top: 1px solid #eee;
             padding-top: 20px;
-            gap: 10px;
-            flex-wrap: wrap;
         }
 
         button.action-btn {
-            padding: 15px 25px;
+            padding: 15px 40px;
             border: none;
             border-radius: 8px;
             color: var(--accent-gold);
             background-color: var(--primary-black);
             font-weight: bold;
-            font-size: 15px;
+            font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -227,15 +220,6 @@
             background-color: #333;
         }
 
-        button.action-btn.download-doc-btn {
-            background-color: #1e4620;
-            color: #fff;
-        }
-
-        button.action-btn.download-doc-btn:hover {
-            background-color: #143216;
-        }
-
         @media print {
             .action-buttons, .btn-clear, .warning-box, .no-print, #contract-content { display: none !important; }
             #pagina-contrato { display: block !important; }
@@ -245,8 +229,6 @@
         @media (max-width: 480px) {
             .checkbox-group { grid-template-columns: 1fr; }
             .inline-group { grid-template-columns: 1fr; } 
-            .action-buttons { flex-direction: column; width: 100%; }
-            button.action-btn { width: 100%; }
         }
     </style></head><body><div class="container" id="contract-content">
     <div class="logo-container">
@@ -383,12 +365,6 @@
         <small>* A reserva da data só é confirmada mediante pagamento do sinal.</small>
     </div>
 
-    <!-- NOVO CAMPO: OBSERVAÇÕES ADICIONAIS DO CONTRATO -->
-    <div class="field-group" style="margin-top: 15px;">
-        <label>Observações Adicionais do Evento / Modificações:</label>
-        <textarea id="in_observacoes_extras" placeholder="Digite aqui acordos extras, restrições ou detalhes específicos..."></textarea>
-    </div>
-
     <!-- SEÇÃO DE OBSERVAÇÕES VISÍVEL PARA O CLIENTE ANTES DE ASSINAR -->
     <h2>TERMOS E OBSERVAÇÕES DO CONTRATO</h2>
     <div class="observacoes-box">
@@ -400,7 +376,7 @@
             <span class="alert-text">• LOCAL DA FESTA É OBRIGATÓRIO CONTER: Fogão com gás, Freezer e Pia. (Sujeito a multa de 15% sobre o valor do pacote na falta de algum desses itens sem a comunicação prévia no momento contratual).</span><br>
             <span class="alert-text">• É de total responsabilidade do cliente o cuidado e manuseio adequado com pratarias, estrutura do bar e toalhas. Em caso de danos, será cobrado o valor de reposição.</span><br>
             <span class="alert-text">• Ultrapassando a quantidade de convidados contratada será cobrado o valor de R$ 35,00 por convidado excedente.</span><br>
-            <span class="alert-text">• As equipes chegam ao local com 1 hora de antecedência. É necessário um responsible no local.</span><br>
+            <span class="alert-text">• As equipes chegam ao local com 1 hora de antecedência. É necessário um responsável no local.</span><br>
             <span class="alert-text">• Não fazemos devolução de quantia paga.</span>      
         </p>
     </div>
@@ -418,7 +394,6 @@
 
     <div class="action-buttons">
         <button class="action-btn" onclick="tentarEnviarContrato()">🖨️ Enviar Contrato</button>
-        <button class="action-btn download-doc-btn" onclick="baixarTextoContratoOficial()">📥 Baixar Contrato Oficial (PDF)</button>
     </div>
 </div>
 
@@ -441,9 +416,6 @@
     <p class="info-linha"><strong>Vencimento:</strong> <span id="out_vencimento"></span></p>
     <p class="info-linha" style="font-size: 13px;"><strong>FRUTAS PARA DRINKS:</strong> <span id="out_frutas_drinks">Não informado</span></p>
     <p class="info-linha" style="font-size: 13px;"><strong>TAXA DE LOCOMOÇÃO:</strong> R$ 100,00</p>
-    
-    <!-- EXIBIÇÃO DAS OBSERVAÇÕES ADICIONAIS NA IMPRESSÃO -->
-    <p class="info-linha" style="margin-top: 10px; background: #eee; padding: 5px; border-radius: 4px;"><strong>Observações do Evento:</strong> <span id="out_observacoes_extras">Nenhuma</span></p>
     
     <p style="font-size: 12px; margin-top: 15px;" class="alert-text">
         (Ressaltamos que o não pagamento da modalidade mensal na data combinada sem aviso ocasiona a quebra de contrato)
@@ -525,7 +497,6 @@
         document.getElementById('out_valor_total').innerText = document.getElementById('in_valor_total').value || "R$ 0,00";
         document.getElementById('out_pago').innerText = document.getElementById('in_pago').value || "R$ 0,00";
         document.getElementById('out_prato_principal').innerText = document.getElementById('in_prato_principal').value || "Não informado";
-        document.getElementById('out_observacoes_extras').innerText = document.getElementById('in_observacoes_extras').value || "Nenhuma";
         
         const pacotes = document.getElementsByName('pacote_tipo');
         let pacoteSelecionado = "Não selecionado";
@@ -559,87 +530,6 @@
             return;
         }
         window.print();
-    }
-
-    function baixarTextoContratoOficial() {
-        // Objeto HTML temporário para renderizar o texto oficial do contrato de forma estilizada e limpa para o PDF
-        const divTemporaria = document.createElement('div');
-        divTemporaria.style.fontFamily = 'Times New Roman, serif';
-        divTemporaria.style.padding = '40px';
-        divTemporaria.style.color = '#000';
-        divTemporaria.style.lineHeight = '1.6';
-        divTemporaria.style.fontSize = '14px';
-
-        divTemporaria.innerHTML = `
-            <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #d4af37; padding-bottom: 10px;">
-                <h2 style="margin: 0; font-size: 18px; color: #1a1a1a;">D'ÁVILA BUFFET E DRINKS</h2>
-                <p style="margin: 5px 0 0 0; font-size: 14px; font-weight: bold; letter-spacing: 1px;">CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE BUFFET E BAR</p>
-            </div>
-            
-            <p style="text-align: justify; text-indent: 40px;">Por este instrumento particular, de um lado, <strong>D'AVILA BUFFET E DRINKS</strong>, doravante denominada simplesmente <strong>CONTRATADA</strong>, e, de outro lado, a pessoa física ou jurídica qualificada no termo de adesão/anexo deste instrumento, doravante denominada simplesmente <strong>CONTRATANTE</strong>, têm entre si justo e contratado o presente instrumento, mediante as cláusulas e condições a seguir expostas:</p>
-            
-            <h3 style="font-size: 15px; margin-top: 20px; border-bottom: 1px solid #ccc;">1. DO OBJETO DO CONTRATO</h3>
-            <p style="text-align: justify; margin-left: 20px;">1.1. O presente contrato tem por objeto a prestação de serviços de buffet e/ou bar para o evento organizado pela CONTRATANTE, conforme especificações de cardápio, número de convidados e cronograma definidos no momento da contratação.</p>
-            
-            <h3 style="font-size: 15px; margin-top: 20px; border-bottom: 1px solid #ccc;">2. DO VALOR E DAS CONDIÇÕES DE PAGAMENTO</h3>
-            <p style="text-align: justify; margin-left: 20px;">2.1. O valor total a ser pago pelos serviços contratados, bem como as datas de vencimento e formas de pagamento, serão os estipulados no termo de adesão ou orçamento anexo a este contrato.</p>
-            <p style="text-align: justify; margin-left: 20px;">2.2. O pagamento deverá ser efetuado rigorosamente nos prazos acordados. O inadimplemento de qualquer parcela ensejará a aplicação de multa de 2% (dois por cento) sobre o valor em atraso, acrescido de juros de mora de 1% (um por cento) ao mês.</p>
-            <p style="text-align: justify; margin-left: 20px;">2.3. <strong>Retenção de Valores:</strong> Em atenção às regras de planejamento e reserva de data da CONTRATADA, não fazemos devolução de quantia paga em caso de desistência, cancelamento ou rescisão motivada por iniciativa da CONTRATANTE.</p>
-            
-            <h3 style="font-size: 15px; margin-top: 20px; border-bottom: 1px solid #ccc;">3. DO LOCAL DA FESTA E INFRAESTRUTURA OBRIGATÓRIA</h3>
-            <p style="text-align: justify; margin-left: 20px;">3.1. O local escolhido para a realização do evento é de inteira responsabilidade da CONTRATANTE, que deverá garantir condições técnicas de segurança e acesso para a equipe da CONTRATADA.</p>
-            <p style="text-align: justify; margin-left: 20px;">3.2. <strong>Infraestrutura Mínima Exigida:</strong> Para a perfeita execução dos serviços, o LOCAL DA FESTA É OBRIGATÓRIO CONTER os seguintes itens em pleno funcionamento: Fogão com gás, Freezer e Pia com água encanada.</p>
-            <p style="text-align: justify; margin-left: 20px;">3.3. <strong>Penalidade por Ausência de Infraestrutura:</strong> A ausência ou inadequação de qualquer um dos itens citados na cláusula 3.2, sem a devida comunicação prévia e por escrito no momento contratual, sujeitará a CONTRATANTE ao pagamento de multa de 15% (quinze por cento) sobre o valor total do pacote contratado, sem prejuízo da responsabilidade por eventuais falhas na execução dos serviços decorrentes dessa falta.</p>
-            
-            <div style="page-break-before: always;"></div>
-
-            <h3 style="font-size: 15px; margin-top: 20px; border-bottom: 1px solid #ccc;">4. DA LOGÍSTICA E DO FORNECIMENTO DE GELO</h3>
-            <p style="text-align: justify; margin-left: 20px;">4.1. <strong>Fornecimento de Gelo:</strong> O fornecimento do gelo para os drinks é de responsabilidade exclusiva da CONTRATANTE. Fica expressamente acordado que a CONTRATADA realiza mais de um evento por dia e, por razões operacionais, não dispõe de condições logísticas para o transporte adequado do gelo até o local do evento.</p>
-            <p style="text-align: justify; margin-left: 20px;">4.2. O gelo deverá ser entregue no local do evento em quantidade suficiente e em temperatura adequada para o início dos serviços de bar.</p>
-            
-            <h3 style="font-size: 15px; margin-top: 20px; border-bottom: 1px solid #ccc;">5. DO ACESSO AO LOCAL E CRONOGRAMA</h3>
-            <p style="text-align: justify; margin-left: 20px;">5.1. <strong>Antecedência:</strong> As equipes da CONTRATADA chegam ao local do evento com 1 (uma) hora de antecedência em relação ao horário de início previsto para o atendimento.</p>
-            <p style="text-align: justify; margin-left: 20px;">5.2. <strong>Recebimento da Equipe:</strong> É obrigatória a presença de um responsável no local para receber a equipe da CONTRATADA, indicar os espaços de montagem e liberar o acesso às instalações hidráulicas e elétricas necessárias.</p>
-            
-            <h3 style="font-size: 15px; margin-top: 20px; border-bottom: 1px solid #ccc;">6. DOS BENS DA CONTRATADA E DA RESPONSABILIDADE POR DANOS</h3>
-            <p style="text-align: justify; margin-left: 20px;">6.1. <strong>Cuidado com Materiais:</strong> É de total responsabilidade da CONTRATANTE o cuidado, zelo e manuseio adequado com todas as pratarias, estrutura do bar, toalhas e demais utensílios/equipamentos de propriedade da CONTRATADA disponibilizados para o evento.</p>
-            <p style="text-align: justify; margin-left: 20px;">6.2. <strong>Indenização por Danos:</strong> Em caso de danos, quebras, avarias, extravios ou manchas irreparáveis nos materiais citados na cláusula 6.1, será cobrado da CONTRATANTE o valor integral de reposição de mercado de cada item danificado ou perdido.</p>
-            
-            <h3 style="font-size: 15px; margin-top: 20px; border-bottom: 1px solid #ccc;">7. DO CONTROLE E EXCEDENTE DE CONVIDADOS</h3>
-            <p style="text-align: justify; margin-left: 20px;">7.1. O serviço será dimensionado para atender estritamente à quantidade de convidados estipulada no termo de adesão.</p>
-            <p style="text-align: justify; margin-left: 20px;">7.2. <strong>Cobrança Adicional:</strong> Ultrapassando a quantidade de convidados estipulada no contrato, será cobrado da CONTRATANTE o valor de R$ 35,00 (trinta e cinco reais) por convidado excedente.</p>
-            <p style="text-align: justify; margin-left: 20px;">7.3. A contagem dos convidados excedentes será realizada de forma conjunta entre o responsável pelo evento e a coordenação da CONTRATADA durante a realização da festa, devendo o valor residual ser pago imediatamente após o término do evento ou conforme combinado entre as partes.</p>
-            
-            <h3 style="font-size: 15px; margin-top: 20px; border-bottom: 1px solid #ccc;">8. DO FORO</h3>
-            <p style="text-align: justify; margin-left: 20px;">8.1. Para dirimir quaisquer dúvidas ou litígios decorrentes do presente contrato, as partes elegem o foro da comarca da sede da CONTRATADA, com renúncia expressa a qualquer outro, por mais privilegiado que seja.</p>
-            
-            <p style="text-align: justify; margin-top: 30px;">Por estarem assim justas e contratadas, as partes firmam o presente instrumento.</p>
-            
-            <div style="margin-top: 60px; display: flex; justify-content: space-around; text-align: center;">
-                <div>
-                    <p style="margin: 0;">__________________________________________</p>
-                    <p style="margin: 5px 0 0 0; font-weight: bold;">DÁVILA BUFFET E DRINKS</p>
-                    <p style="margin: 0; font-size: 12px; color: #555;">CONTRATADA</p>
-                </div>
-                <div style="margin-top: 40px;">
-                    <p style="margin: 0;">__________________________________________</p>
-                    <p style="margin: 5px 0 0 0; font-weight: bold;">CONTRATANTE</p>
-                    <p style="margin: 0; font-size: 12px; color: #555;">Assinatura do Cliente</p>
-                </div>
-            </div>
-        `;
-
-        // Opções de formatação do PDF
-        const opt = {
-            margin:       15,
-            filename:     'Contrato_Oficial_Davila_Buffet.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        // Usa a biblioteca para converter a estrutura em PDF e baixar automaticamente
-        html2pdf().set(opt).from(divTemporaria).save();
     }
 
     window.onbeforeprint = preencherDadosContrato;
