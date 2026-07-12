@@ -90,7 +90,7 @@
             font-size: 14px;
         }
 
-        input[type="text"], input[type="date"], input[type="number"], input[type="time"], input[type="email"] {
+        input[type="text"], input[type="date"], input[type="number"], input[type="time"], input[type="email"], textarea {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
@@ -101,7 +101,12 @@
             font-family: inherit;
         }
 
-        input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, input[type="time"]:focus, input[type="email"]:focus {
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, input[type="time"]:focus, input[type="email"]:focus, textarea:focus {
             border-color: var(--accent-gold);
             outline: none;
         }
@@ -365,6 +370,12 @@
         <small>* A reserva da data só é confirmada mediante pagamento do sinal.</small>
     </div>
 
+    <!-- NOVO CAMPO: OBSERVAÇÕES ADICIONAIS DO CONTRATO -->
+    <div class="field-group" style="margin-top: 15px;">
+        <label>Observações Adicionais do Evento / Modificações:</label>
+        <textarea id="in_observacoes_extras" placeholder="Digite aqui acordos extras, restrições ou detalhes específicos..."></textarea>
+    </div>
+
     <!-- SEÇÃO DE OBSERVAÇÕES VISÍVEL PARA O CLIENTE ANTES DE ASSINAR -->
     <h2>TERMOS E OBSERVAÇÕES DO CONTRATO</h2>
     <div class="observacoes-box">
@@ -376,7 +387,7 @@
             <span class="alert-text">• LOCAL DA FESTA É OBRIGATÓRIO CONTER: Fogão com gás, Freezer e Pia. (Sujeito a multa de 15% sobre o valor do pacote na falta de algum desses itens sem a comunicação prévia no momento contratual).</span><br>
             <span class="alert-text">• É de total responsabilidade do cliente o cuidado e manuseio adequado com pratarias, estrutura do bar e toalhas. Em caso de danos, será cobrado o valor de reposição.</span><br>
             <span class="alert-text">• Ultrapassando a quantidade de convidados contratada será cobrado o valor de R$ 35,00 por convidado excedente.</span><br>
-            <span class="alert-text">• As equipes chegam ao local com 1 hora de antecedência. É necessário um responsável no local.</span><br>
+            <span class="alert-text">• As equipes chegam ao local com 1 hora de antecedência. É necessário um responsible no local.</span><br>
             <span class="alert-text">• Não fazemos devolução de quantia paga.</span>      
         </p>
     </div>
@@ -417,6 +428,9 @@
     <p class="info-linha" style="font-size: 13px;"><strong>FRUTAS PARA DRINKS:</strong> <span id="out_frutas_drinks">Não informado</span></p>
     <p class="info-linha" style="font-size: 13px;"><strong>TAXA DE LOCOMOÇÃO:</strong> R$ 100,00</p>
     
+    <!-- EXIBIÇÃO DAS OBSERVAÇÕES ADICIONAIS NA IMPRESSÃO -->
+    <p class="info-linha" style="margin-top: 10px; background: #eee; padding: 5px; border-radius: 4px;"><strong>Observações do Evento:</strong> <span id="out_observacoes_extras">Nenhuma</span></p>
+    
     <p style="font-size: 12px; margin-top: 15px;" class="alert-text">
         (Ressaltamos que o não pagamento da modalidade mensal na data combinada sem aviso ocasiona a quebra de contrato)
     </p>
@@ -444,7 +458,6 @@
 </div>
 
 <script>
-  
     function verificarPromocional(isPromo) {
         document.getElementById('secao-promocional').style.display = isPromo ? 'block' : 'none';
     }
@@ -498,6 +511,7 @@
         document.getElementById('out_valor_total').innerText = document.getElementById('in_valor_total').value || "R$ 0,00";
         document.getElementById('out_pago').innerText = document.getElementById('in_pago').value || "R$ 0,00";
         document.getElementById('out_prato_principal').innerText = document.getElementById('in_prato_principal').value || "Não informado";
+        document.getElementById('out_observacoes_extras').innerText = document.getElementById('in_observacoes_extras').value || "Nenhuma";
         
         const pacotes = document.getElementsByName('pacote_tipo');
         let pacoteSelecionado = "Não selecionado";
