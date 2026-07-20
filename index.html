@@ -141,7 +141,7 @@
             margin-top: 10px;
         }
 
-        #secao-promocional, #secao-frutas-drinks {
+        #secao-promocional, #secao-frutas-drinks, #secao-sabores-caldo {
             display: none;
             background: #fff9f0;
             padding: 15px;
@@ -284,20 +284,28 @@
 
     <h2>INFORMAÇÕES DO BUFFET</h2>
     
-    <label>Escolha o sabor do caldinho:</label>
+    <!-- SEÇÃO DE CALDOS COM LÓGICA DINÂMICA -->
+    <label>Deseja incluir caldo no evento?</label>
     <div class="checkbox-group">
-        <label class="check-item"><input type="radio" name="sabor_caldinho"> Feijão</label>
-        <label class="check-item"><input type="radio" name="sabor_caldinho"> Feijoada</label>
-        <label class="check-item"><input type="radio" name="sabor_caldinho"> Camarão</label>
-        <label class="check-item"><input type="radio" name="sabor_caldinho"> Costela</label>
-        <label class="check-item"><input type="radio" name="sabor_caldinho"> Macaxeira</label>
-        <label class="check-item"><input type="radio" name="sabor_caldinho"> Kenga</label>
-        <label class="check-item"><input type="radio" name="sabor_caldinho"> Caldo Verde</label>
-        <label class="check-item"><input type="radio" name="sabor_caldinho"> Peixe</label>
-        <label class="check-item"><input type="radio" name="sabor_caldinho"> Não quero Caldo</label>
+        <label class="check-item"><input type="radio" name="deseja_caldo" value="Sim" onclick="verificarCaldo(true)"> Sim</label>
+        <label class="check-item"><input type="radio" name="deseja_caldo" value="Não" onclick="verificarCaldo(false)"> Não</label>
     </div>
 
-    <div class="field-group">
+    <div id="secao-sabores-caldo">
+        <label>Escolha 1 (um) sabor de caldo:</label>
+        <div class="checkbox-group">
+            <label class="check-item"><input type="radio" name="sabor_caldinho" value="Feijão"> Feijão</label>
+            <label class="check-item"><input type="radio" name="sabor_caldinho" value="Feijoada"> Feijoada</label>
+            <label class="check-item"><input type="radio" name="sabor_caldinho" value="Camarão"> Camarão</label>
+            <label class="check-item"><input type="radio" name="sabor_caldinho" value="Costela"> Costela</label>
+            <label class="check-item"><input type="radio" name="sabor_caldinho" value="Macaxeira"> Macaxeira</label>
+            <label class="check-item"><input type="radio" name="sabor_caldinho" value="Kenga"> Kenga</label>
+            <label class="check-item"><input type="radio" name="sabor_caldinho" value="Caldo Verde"> Caldo Verde</label>
+            <label class="check-item"><input type="radio" name="sabor_caldinho" value="Peixe"> Peixe</label>
+        </div>
+    </div>
+
+    <div class="field-group" style="margin-top: 15px;">
         <label>Prato Principal:</label>
         <input type="text" id="in_prato_principal" placeholder="Descreva o prato principal">
     </div>
@@ -311,7 +319,7 @@
     <label>Bebidas inclusas:</label>
     <div class="checkbox-group">
         <label class="check-item"><input type="radio" name="bebidas_opt"> Refrigerante (sortidos)</label>
-        <label class="check-item"><input type="radio" name="bebidas_opt"> Su Suco (sortidos)</label>
+        <label class="check-item"><input type="radio" name="bebidas_opt"> Suco (sortidos)</label>
     </div>
 
     <h2>DRINKS</h2>
@@ -428,6 +436,7 @@
     <p class="info-linha"><strong>Quantidade de Convidados:</strong> <span id="out_convidados"></span></p>
     <p class="info-linha"><strong>E-mail:</strong> <span id="out_email"></span></p>
     <p class="info-linha"><strong>Tipo de Pacote:</strong> <span id="out_pacote"></span></p>
+    <p class="info-linha"><strong>Sabor do Caldo:</strong> <span id="out_caldo">Não informado</span></p>
     <p class="info-linha"><strong>Prato Principal:</strong> <span id="out_prato_principal">Não informado</span></p>
     <p class="info-linha"><strong>Valor do pacote:</strong> <span id="out_valor_total"></span></p>
     <p class="info-linha"><strong>Pago:</strong> <span id="out_pago"></span></p>
@@ -476,6 +485,17 @@
 <script>
     function verificarPromocional(isPromo) {
         document.getElementById('secao-promocional').style.display = isPromo ? 'block' : 'none';
+    }
+
+    function verificarCaldo(querCaldo) {
+        const secao = document.getElementById('secao-sabores-caldo');
+        secao.style.display = querCaldo ? 'block' : 'none';
+        if (!querCaldo) {
+            const opcoes = document.getElementsByName('sabor_caldinho');
+            for (const r of opcoes) {
+                r.checked = false;
+            }
+        }
     }
 
     function verificarDrinks(temDrinks) {
@@ -529,6 +549,24 @@
         document.getElementById('out_prato_principal').innerText = document.getElementById('in_prato_principal').value || "Não informado";
         document.getElementById('out_observacoes_extras').innerText = document.getElementById('in_observacoes_extras').value || "Nenhuma";
         
+        // Processar Opção de Caldo
+        const desejaCaldo = document.querySelector('input[name="deseja_caldo"]:checked');
+        if (desejaCaldo && desejaCaldo.value === 'Sim') {
+            const sabores = document.getElementsByName('sabor_caldinho');
+            let saborEscolhido = "Não selecionado";
+            for (const r of sabores) {
+                if (r.checked) {
+                    saborEscolhido = r.value;
+                    break;
+                }
+            }
+            document.getElementById('out_caldo').innerText = saborEscolhido;
+        } else if (desejaCaldo && desejaCaldo.value === 'Não') {
+            document.getElementById('out_caldo').innerText = "Não deseja caldo";
+        } else {
+            document.getElementById('out_caldo').innerText = "Não informado";
+        }
+
         const pacotes = document.getElementsByName('pacote_tipo');
         let pacoteSelecionado = "Não selecionado";
         for (const r of pacotes) {
